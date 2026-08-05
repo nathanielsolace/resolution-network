@@ -55,3 +55,35 @@
 {"ts":"2026-08-04T23:59:54.838Z","resolver":"triton","type":"orgs_added","detail":"0 new organizations this session (0 dropped by honesty gate)"}
 {"ts":"2026-08-04T23:59:54.838Z","resolver":"triton","type":"run_completed","detail":"notes: Dry run only."}
 {"ts":"2026-08-05T00:03:15.114Z","resolver":"triton","type":"run_started","detail":"TRITON research session (77 orgs in commons)"}
+{"ts":"2026-08-05T00:14:13.582Z","resolver":"triton","type":"model_usage","detail":"in 1157868 / out 32295 tokens on claude-sonnet-5"}
+{"ts":"2026-08-05T00:14:13.585Z","resolver":"triton","type":"orgs_added","detail":"4 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-08-05T00:14:13.585Z","resolver":"triton","type":"intros_proposed","detail":"1 introduction drafted for the approval queue (1 dropped by honesty gate)"}
+{"ts":"2026-08-05T00:14:13.588Z","resolver":"triton","type":"report_updated","detail":"Ghana Gets Its First River Boom, Guatemala Its First Barrier, and Ghost Gear Gets a Network Layer (+4 findings, 9 standing)"}
+{"ts":"2026-08-05T00:14:13.588Z","resolver":"triton","type":"run_completed","detail":"notes: The web search tool hit a session limit after the first batch of queries, so all further leads came from web_fetch on links already surfaced or linked from pages already loaded, which narrowed this se"}
+{"ts":"2026-08-05T00:17:13.662Z","resolver":"terra","type":"run_started","detail":"TERRA research session (32 orgs in commons)"}
+{"ts":"2026-08-05T00:26:42.803Z","resolver":"terra","type":"model_usage","detail":"in 673279 / out 30136 tokens on claude-sonnet-5"}
+{"ts":"2026-08-05T00:26:42.806Z","resolver":"terra","type":"orgs_added","detail":"5 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-08-05T00:26:42.807Z","resolver":"terra","type":"intros_proposed","detail":"2 introductions drafted for the approval queue"}
+{"ts":"2026-08-05T00:26:42.808Z","resolver":"terra","type":"report_updated","detail":"Three seats fill in Latin America, two half-answers land in Southeast Asia (+3 findings, 7 standing)"}
+{"ts":"2026-08-05T00:26:42.809Z","resolver":"terra","type":"run_completed","detail":"notes: The web-fetch tool hit its session limit partway through, so INTA's official homepage (argentina.gob.ar/inta) and Techcoop's own site (techcoop.vn) are cited via search-tool content rather than a dire"}
+{"ts":"2026-08-05T00:29:42.906Z","resolver":"aether","type":"run_started","detail":"AETHER research session (32 orgs in commons)"}
+{"ts":"2026-08-05T00:40:46.189Z","resolver":"aether","type":"model_usage","detail":"in 615508 / out 34519 tokens on claude-sonnet-5"}
+{"ts":"2026-08-05T00:40:46.193Z","resolver":"aether","type":"orgs_added","detail":"4 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-08-05T00:40:46.194Z","resolver":"aether","type":"intros_proposed","detail":"1 introduction drafted for the approval queue (1 dropped by honesty gate)"}
+{"ts":"2026-08-05T00:40:46.195Z","resolver":"aether","type":"report_updated","detail":"The Funder's Ledger: Ten Grants, One Theme, and Bangladesh's First Entry (+4 findings, 9 standing)"}
+{"ts":"2026-08-05T00:40:46.195Z","resolver":"aether","type":"run_completed","detail":"notes: The web_search tool hit its session limit early and web_fetch followed shortly after, so this session's discovery ran entirely off links found inside Clean Air Fund's grants page rather than open sear"}
+{"ts":"2026-08-05T00:43:46.280Z","resolver":"ignis","type":"run_started","detail":"IGNIS research session (31 orgs in commons)"}
+{"ts":"2026-08-05T00:50:38.083Z","resolver":"ignis","type":"model_usage","detail":"in 740851 / out 26763 tokens on claude-sonnet-5"}
+{"ts":"2026-08-05T00:50:38.094Z","resolver":"ignis","type":"orgs_added","detail":"2 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-08-05T00:50:38.094Z","resolver":"ignis","type":"intros_proposed","detail":"2 introductions drafted for the approval queue"}
+{"ts":"2026-08-05T00:50:38.100Z","resolver":"ignis","type":"report_updated","detail":"The Commons Gains Two Detectors and Loses No Ground on Recovery (+4 findings, 9 standing)"}
+{"ts":"2026-08-05T00:50:38.100Z","resolver":"ignis","type":"run_completed","detail":"notes: The web search and fetch budget for this session ran out mid-research, cutting short planned checks on IQ FireWatch's headquarters and a fresh look for community-preparedness projects in Southeast Asi"}
+{"ts":"2026-08-05T00:53:38.316Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (1 orgs in commons)"}
+{"ts":"2026-08-05T00:57:55.772Z","resolver":"nereus","type":"model_usage","detail":"in 145641 / out 20650 tokens on claude-sonnet-5"}
+{"ts":"2026-08-05T00:57:55.775Z","resolver":"nereus","type":"run_failed","detail":"No parseable structured output in response text blocks."}
+{"ts":"2026-08-05T01:02:55.888Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (1 orgs in commons)"}
+{"ts":"2026-08-05T01:11:24.974Z","resolver":"nereus","type":"model_usage","detail":"in 1034799 / out 28911 tokens on claude-sonnet-5"}
+{"ts":"2026-08-05T01:11:24.976Z","resolver":"nereus","type":"orgs_added","detail":"5 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-08-05T01:11:24.977Z","resolver":"nereus","type":"intros_proposed","detail":"2 introductions drafted for the approval queue"}
+{"ts":"2026-08-05T01:11:24.980Z","resolver":"nereus","type":"report_updated","detail":"Three Builders, One Brine Specialist, and Yemen's Unmet Ledger (+4 findings, 7 standing)"}
+{"ts":"2026-08-05T01:11:24.980Z","resolver":"nereus","type":"run_completed","detail":"notes: A tool rate limit cut off direct fetches of wabag.com and acwapower.com's own sites partway through the session, so several claims rest on syndicated coverage rather than the primary source; WABAG's f"}

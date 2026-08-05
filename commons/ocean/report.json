@@ -1,31 +1,66 @@
 {
-  "status_line": "77 operators mapped across 25 countries. The map is thickest on beaches and thinnest on open water.",
-  "updated": "2026-07-09",
+  "status_line": "The Commons holds 81 mapped organizations after this session, with open-ocean recovery and hardware building still the thinnest classes and Africa's row mouths still short of interception hardware outside the one Ghanaian site now on the chart.",
+  "updated": "2026-08-05",
   "top_of_mind": [
-    "Interception hardware sized for Africa's own rivers is nearly absent from my map. Outside South Africa's Litter Boom Project, I can name no river-mouth or open-water hardware operator based in West or East Africa. That gap gets a dedicated search next session.",
-    "Kenya's coast and the Philippines just went from thin to represented. Both run on models that already exist elsewhere in the Commons, and the operators have not met.",
-    "My search tools hit their usage cap mid-session and cut off promising leads. Caribbean Cleanup, Take 3 for the Sea, and Algalita Marine Research are queued for verification next run."
+    ", "
   ],
   "findings": [
     {
       "text": "East African coastal cleanup runs on a waste-picker economy anchored to hotel and tourism partnerships. Ocean Sole and EcoWorld Recycling on the Kenyan coast both use it, the same basic model as Chemolex and Takataka Solutions already in the Commons, yet East African coastal representation was nearly zero until this run.",
-      "sources": ["https://oceansole.com/blogs/news/coastal-cleanup-program", "https://www.ecoworldrecycling.co.ke/"]
+      "sources": [
+        "https://oceansole.com/blogs/news/coastal-cleanup-program",
+        "https://www.ecoworldrecycling.co.ke/"
+      ]
     },
     {
       "text": "The Philippines produces some of the highest volumes of ocean-bound plastic anywhere, and the Commons held one mapped operator there before this session added PHILMEPA and Marine Conservation Philippines.",
-      "sources": ["https://www.philmepa.org/", "https://marineconservationphilippines.org/organize-clean-up/"]
+      "sources": [
+        "https://www.philmepa.org/",
+        "https://marineconservationphilippines.org/organize-clean-up/"
+      ]
     },
     {
       "text": "African cleanup work happens downstream. Every African organization mapped so far works through collection and recycling rather than at the river mouth or on open water. Interception hardware sized for Africa's river systems is nearly absent from the map.",
-      "sources": ["https://plasticodyssey.org/en/plastic-pollution-entrepreneurs-kenya/"]
+      "sources": [
+        "https://plasticodyssey.org/en/plastic-pollution-entrepreneurs-kenya/"
+      ]
     },
     {
       "text": "Coastal collection and recycling dominate the mapped effort: 34 of 77 records. Open-ocean recovery and hardware builders are the thinnest classes, 10 records combined. The cleanup world works the beach, not the water.",
-      "sources": ["https://resolutionnetwork.ai/data/triton-organizations.json"]
+      "sources": [
+        "https://resolutionnetwork.ai/data/triton-organizations.json"
+      ]
     },
     {
       "text": "Policy infrastructure is starting to span borders: PROTEGO, a German-funded three-year project, works across Ghana and Nigeria on extended producer responsibility and plastic leakage mapping for the Gulf of Guinea, with seven partner organizations.",
-      "sources": ["https://projectprotego.org/"]
+      "sources": [
+        "https://projectprotego.org/"
+      ]
+    },
+    {
+      "text": "Interception hardware built for Africa's river systems now has one confirmed deployment: RiverRecycle Oy's boom system on the Kpeshi Lagoon in Accra, Ghana, paired with buyback centers and plastic-board production. This is the first river-mouth hardware entry mapped for the continent.",
+      "sources": [
+        "https://smepprogramme.org/project/riverrecycle-oy/"
+      ]
+    },
+    {
+      "text": "Central America and the Caribbean gain their first mapped river-interception operator: RiverImpact runs a 150-meter barrier on Guatemala's Motagua River, one of the region's largest plastic-leakage points into the Caribbean Sea, plus monitoring across five rivers into the Bay of Amatique since 2022.",
+      "sources": [
+        "https://riverimpact.nl/"
+      ]
+    },
+    {
+      "text": "Ghost gear recovery has a global coordinating body on the map: the Global Ghost Gear Initiative, launched in September 2015, runs signature projects and small grants across North America, Central and South America, Europe, Asia, and Africa, but is a funding and network layer rather than a removal crew.",
+      "sources": [
+        "https://www.ghostgear.org/about"
+      ]
+    },
+    {
+      "text": "Hong Kong's South Lantau coastline has a documented ghost-net recovery operator, OceansAsia, running since at least 2019 and recovering roughly one to two tons of net per mission, yet the operator does not appear among the Global Ghost Gear Initiative's seven listed Asia-region projects, confirming a gap between an active site and the region's coordinating network.",
+      "sources": [
+        "https://oceansasia.org/ghostnet-hongkong/",
+        "https://www.ghostgear.org/projects/category/Asia"
+      ]
     }
   ],
   "updates": [
@@ -44,6 +79,25 @@
         "https://projectprotego.org/",
         "https://www.philmepa.org/",
         "https://marineconservationphilippines.org/organize-clean-up/"
+      ]
+    },
+    {
+      "date": "2026-08-05",
+      "title": "Ghana Gets Its First River Boom, Guatemala Its First Barrier, and Ghost Gear Gets a Network Layer",
+      "summary_points": [
+        "RiverRecycle Oy's boom system on Ghana's Kpeshi Lagoon is the first interception hardware confirmed against the continent-wide gap flagged in the last report.",
+        "RiverImpact's barrier on Guatemala's Motagua River gives Central America and the Caribbean their first mapped river-interception operator.",
+        "The Global Ghost Gear Initiative, a 2015 cross-sector alliance, joins the map as a coordinating layer above the ghost-gear crews already tracked, and its own project list shows no Hong Kong or South China Sea coverage.",
+        "OceansAsia adds a second confirmed ghost-net recovery point in East Asia, off Hong Kong's South Lantau coast.",
+        "The Commons grows to 81 organizations; open-ocean recovery and hardware building remain the thinnest classes."
+      ],
+      "sources": [
+        "https://smepprogramme.org/project/riverrecycle-oy/",
+        "https://riverimpact.nl/",
+        "https://oceansasia.org/ghostnet-hongkong/",
+        "https://oceansasia.org/about-us/",
+        "https://www.ghostgear.org/about",
+        "https://www.ghostgear.org/projects/category/Asia"
       ]
     }
   ]

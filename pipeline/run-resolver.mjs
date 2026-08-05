@@ -75,7 +75,7 @@ const OUTPUT_SCHEMA = {
   schema: {
     type: "object",
     additionalProperties: false,
-    required: ["new_organizations", "report_update", "findings_delta", "introduction_candidates", "top_of_mind", "status_line", "run_notes"],
+    required: ["new_organizations", "report_update", "findings_delta", "introduction_candidates", "hardware_proposals", "funding_leads", "accountability_flags", "top_of_mind", "status_line", "run_notes"],
     properties: {
       new_organizations: {
         type: "array",
@@ -133,6 +133,50 @@ const OUTPUT_SCHEMA = {
           },
         },
       },
+      hardware_proposals: {
+        type: "array",
+        items: {
+          type: "object",
+          additionalProperties: false,
+          required: ["name", "description", "addresses", "sources"],
+          properties: {
+            name: { type: "string" },
+            description: { type: "string" },
+            addresses: { type: "string" },
+            cost_note: { type: ["string", "null"] },
+            sources: { type: "array", items: { type: "string" } },
+          },
+        },
+      },
+      funding_leads: {
+        type: "array",
+        items: {
+          type: "object",
+          additionalProperties: false,
+          required: ["name", "kind", "relevance", "sources"],
+          properties: {
+            name: { type: "string" },
+            kind: { type: "string" },
+            amount_note: { type: ["string", "null"] },
+            relevance: { type: "string" },
+            url: { type: ["string", "null"] },
+            sources: { type: "array", items: { type: "string" } },
+          },
+        },
+      },
+      accountability_flags: {
+        type: "array",
+        items: {
+          type: "object",
+          additionalProperties: false,
+          required: ["org", "concern", "sources"],
+          properties: {
+            org: { type: "string" },
+            concern: { type: "string" },
+            sources: { type: "array", items: { type: "string" } },
+          },
+        },
+      },
       top_of_mind: { type: "array", items: { type: "string" }, minItems: 1 },
       status_line: { type: "string" },
       run_notes: { type: "string" },
@@ -178,6 +222,12 @@ Produce report_update: a titled update on what this session changed. summary_poi
 Produce findings_delta: 0 to 4 NEW standing findings this session established, each one sentence or two, each with its source URLs. A finding is a durable fact about the state of your domain's map, not a session anecdote. Do not repeat prior findings.
 
 JOB 3 - Propose introductions. Look across the Commons and this session's work for at most 2 pairs of organizations that should be one conversation: same method in adjacent regions, complementary capabilities, one holding data the other needs, or demonstrably duplicated work. For each pair produce introduction_candidates: org_a and org_b EXACTLY as named in the Commons, overlap (2 to 4 sentences stating the specific connection points, every factual claim cited in sources), and intro_draft (a short email in your voice, under 180 words, that a human steward will review before anything sends; specific, generous, zero flattery, every claim in it backed by the sources array). Propose zero pairs if no pairing this session would genuinely help both sides. These drafts NEVER send without human approval.
+
+JOB 4 - Hardware and software worth building. If this session's research surfaced a gap that a specific piece of hardware, sensor, software tool, or automation would close, propose it in hardware_proposals: name, description (what it is, 2 to 4 sentences), addresses (which specific gap in your mandate it closes), cost_note (a real cited cost or cost range if a source states one, otherwise null, never a guess), and sources. Propose zero if nothing this session earned a proposal. This is not brainstorming; it must trace to a real gap you found today.
+
+JOB 5 - Funding worth chasing. If this session surfaced a real, currently open grant, prize, funding program, or financing mechanism relevant to closing a gap in your mandate, propose it in funding_leads: name, kind (grant, prize, program, financing mechanism), amount_note (only if a source states a real figure, otherwise null), relevance (why it matters to your mandate specifically), url, and sources. Propose zero if you found no real, currently relevant lead this session.
+
+JOB 6 - Accountability. If this session surfaced an organization whose disclosed funding, scale claims, or public commitments do not match any verifiable, cited output, or where two independent sources materially disagree on what an organization has actually delivered, flag it in accountability_flags: org, concern (state the specific mismatch plainly, cite what is claimed and what is or is not verifiable), and sources. This is not an accusation; it is a research gap worth someone checking. Propose zero if nothing this session met that bar. Never flag an organization based on the absence of evidence alone; the mismatch must be between a specific stated claim and a specific check.
 
 The meaningfulness rule: every output this session must change the map in one of five ways: a region or method gains its first mapped operator, a suspected gap is searched again and confirmed still empty, duplicated work is surfaced, a tracked number gains a new cited data point, or a specific pair worth connecting is identified. Anything that does none of these belongs in run_notes, not in the published output. A confirmed absence is a finding.
 
@@ -249,6 +299,9 @@ function dryFixture() {
   return {
     new_organizations: [],
     introduction_candidates: [],
+    hardware_proposals: [],
+    funding_leads: [],
+    accountability_flags: [],
     report_update: {
       title: "Dry run: pipeline plumbing check",
       summary_points: ["Dry run only; nothing here publishes."],
@@ -347,6 +400,51 @@ async function main() {
       "intros_proposed",
       `${proposedIntros.length} introduction${proposedIntros.length === 1 ? "" : "s"} drafted for the approval queue${introsDropped ? ` (${introsDropped} dropped by honesty gate)` : ""}`
     );
+  }
+
+  // Hardware, funding, and accountability: three more gated ledgers, same
+  // discipline as everything else. Sources required; empty is honest.
+  function writeGatedLedger(fileName, items, dedupeKey, buildRow) {
+    const p = path.join(commonsDir, fileName);
+    const existingRows = readJsonl(p);
+    const known = new Set(existingRows.map((r) => String(r[dedupeKey]).toLowerCase().trim()));
+    const accepted = [];
+    let droppedCount = 0;
+    for (const item of items || []) {
+      const key = item[dedupeKey] ? String(item[dedupeKey]).toLowerCase().trim() : null;
+      const cited = Array.isArray(item.sources) && item.sources.some((s) => /^https?:\/\//.test(s));
+      if (!key || !cited || known.has(key)) {
+        droppedCount++;
+        continue;
+      }
+      known.add(key);
+      accepted.push(buildRow(item));
+    }
+    if (!DRY && accepted.length) {
+      fs.appendFileSync(p, accepted.map((r) => JSON.stringify(r)).join("\n") + "\n");
+    }
+    return { accepted: accepted.length, dropped: droppedCount };
+  }
+
+  if (!DRY) {
+    const hw = writeGatedLedger("hardware.jsonl", result.hardware_proposals, "name", (i) => ({
+      ...i, resolver: resolver.id, proposed: today,
+    }));
+    if (hw.accepted || hw.dropped) {
+      logEvent("hardware_proposed", `${hw.accepted} hardware/software spec${hw.accepted === 1 ? "" : "s"} proposed${hw.dropped ? ` (${hw.dropped} dropped by honesty gate)` : ""}`);
+    }
+    const fl = writeGatedLedger("funding.jsonl", result.funding_leads, "name", (i) => ({
+      ...i, resolver: resolver.id, flagged: today,
+    }));
+    if (fl.accepted || fl.dropped) {
+      logEvent("funding_flagged", `${fl.accepted} funding lead${fl.accepted === 1 ? "" : "s"} flagged${fl.dropped ? ` (${fl.dropped} dropped by honesty gate)` : ""}`);
+    }
+    const af = writeGatedLedger("accountability.jsonl", result.accountability_flags, "org", (i) => ({
+      ...i, resolver: resolver.id, flagged: today,
+    }));
+    if (af.accepted || af.dropped) {
+      logEvent("accountability_flagged", `${af.accepted} accountability flag${af.accepted === 1 ? "" : "s"} raised${af.dropped ? ` (${af.dropped} dropped by honesty gate)` : ""}`);
+    }
   }
 
   // Quality gate on the report itself: a degenerate or filler update never

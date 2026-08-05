@@ -56,6 +56,9 @@ const resolvers = LIVE.map((r) => {
   const runs = runLog.filter((e) => e.resolver === r.id && e.ts.slice(0, 10) >= since);
   const lastRun = runs.filter((e) => e.type === "run_completed").at(-1) || null;
   const connections = connectionLedger(r.commons);
+  const hardware = readJsonl(path.join(commonsDir, "hardware.jsonl"));
+  const funding = readJsonl(path.join(commonsDir, "funding.jsonl"));
+  const flags = readJsonl(path.join(commonsDir, "accountability.jsonl"));
   const methods = {};
   const countries = new Set();
   let sourceCount = 0;
@@ -89,7 +92,13 @@ const resolvers = LIVE.map((r) => {
     latest_brief: briefs.at(-1) || null,
     last_run: lastRun ? lastRun.ts : null,
     connections: funnelOf(connections),
+    hardware_proposed: hardware.length,
+    funding_flagged: funding.length,
+    accountability_flags: flags.length,
     _connections: connections,
+    _hardware: hardware,
+    _funding: funding,
+    _flags: flags,
     _orgs: orgs,
     _commonsDir: commonsDir,
     _briefFiles: briefs,
@@ -129,6 +138,9 @@ const totals = {
     for (const s of FUNNEL_STAGES) acc[s] += r.connections[s];
     return acc;
   }, emptyFunnel()),
+  hardware_proposed: resolvers.reduce((n, r) => n + r.hardware_proposed, 0),
+  funding_flagged: resolvers.reduce((n, r) => n + r.funding_flagged, 0),
+  accountability_flags: resolvers.reduce((n, r) => n + r.accountability_flags, 0),
   resolvers_active: resolvers.filter((r) => r.status === "active").length,
   resolvers_live: resolvers.length,
   resolvers_total: REGISTRY.resolvers.length,
@@ -174,7 +186,7 @@ const queue = QUEUE.map((q) => {
 const network = {
   generated_at: new Date().toISOString(),
   network: REGISTRY.network,
-  resolvers: resolvers.map(({ _orgs, _commonsDir, _briefFiles, _connections, ...pub }) => pub),
+  resolvers: resolvers.map(({ _orgs, _commonsDir, _briefFiles, _connections, _hardware, _funding, _flags, ...pub }) => pub),
   queue,
   totals,
   pulse: runLog.slice(-40).reverse(),
@@ -238,6 +250,87 @@ for (const r of resolvers) {
     .filter((c) => c.state === "connected")
     .map((c) => ({ id: c.id, org_a: c.org_a, org_b: c.org_b, overlap: c.overlap, sources: c.sources, connected: (c.history || []).find((h) => h.state === "connected")?.ts || null }));
 
+  // Coverage by region: the real distribution behind the org count, not a map graphic.
+  const regionCounts = {};
+  for (const o of r._orgs) for (const rg of o.regions || []) regionCounts[rg] = (regionCounts[rg] || 0) + 1;
+  const regionTotal = Object.values(regionCounts).reduce((a, b) => a + b, 0);
+  const coverageByRegion = Object.entries(regionCounts)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([name, count]) => ({ name, count, pct: regionTotal ? Math.round((count / regionTotal) * 100) : 0 }));
+
+  // Pre-set Q&A: no API call, no simulation. Every answer is assembled from
+  // data already published in this Resolver's own report and Commons. If the
+  // underlying field is empty, the question does not render (see build-pages).
+  const qa = [];
+  const latestFinding = (state.findings || []).at(-1);
+  if (latestFinding) {
+    qa.push({
+      id: "surprising",
+      q: "What's something surprising you've found lately?",
+      a: latestFinding.text,
+      sources: latestFinding.sources || [],
+    });
+  }
+  if (coverageByRegion.length) {
+    const top = coverageByRegion[0];
+    qa.push({
+      id: "activity",
+      q: "Where are you seeing the most activity right now?",
+      a: `${top.name} holds the largest share of my Commons so far: ${top.count} of ${regionTotal} regional mentions, about ${top.pct} percent. That is where the effort concentrates; it is not the same as where the need is greatest.`,
+      sources: [],
+    });
+  }
+  if (state.top_of_mind && state.top_of_mind.length) {
+    qa.push({
+      id: "watching",
+      q: "What are you watching heading into the next session?",
+      a: state.top_of_mind.join(" "),
+      sources: [],
+    });
+  }
+  if (state.status_line) {
+    qa.push({
+      id: "state",
+      q: "What's the honest state of the map right now?",
+      a: state.status_line,
+      sources: [],
+    });
+  }
+  if (r._hardware.length) {
+    const hw = r._hardware.at(-1);
+    qa.push({
+      id: "hardware",
+      q: "Is there hardware or software worth building here?",
+      a: `${hw.name}: ${hw.description} It would address: ${hw.addresses}`,
+      sources: hw.sources || [],
+    });
+  }
+  if (r._funding.length) {
+    const fl = r._funding.at(-1);
+    qa.push({
+      id: "funding",
+      q: "What funding is worth chasing right now?",
+      a: `${fl.name} (${fl.kind}). ${fl.relevance}`,
+      sources: fl.sources || [],
+    });
+  }
+  if (r._flags.length) {
+    const flag = r._flags.at(-1);
+    qa.push({
+      id: "accountability",
+      q: "Any organizations worth a closer look?",
+      a: `${flag.org}: ${flag.concern}`,
+      sources: flag.sources || [],
+    });
+  }
+  qa.push({
+    id: "tracks",
+    q: `What does ${r.name} actually track?`,
+    a: (reg.tracking || []).join(" "),
+    sources: [],
+  });
+
   const report = {
     generated_at: network.generated_at,
     resolver: r.id,
@@ -245,6 +338,11 @@ for (const r of resolvers) {
     drive: reg.drive || null,
     chain: reg.chain || null,
     connections: { funnel: r.connections, confirmed },
+    hardware_proposed: r._hardware,
+    funding_leads: r._funding,
+    accountability_flags: r._flags,
+    coverage_by_region: coverageByRegion,
+    qa,
     watches,
     status_line: state.status_line,
     updated: state.updated,

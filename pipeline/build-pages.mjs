@@ -102,6 +102,113 @@ function page(r) {
     mask-image: radial-gradient(1100px 700px at 50% 20%, #000, transparent 78%);
     -webkit-mask-image: radial-gradient(1100px 700px at 50% 20%, #000, transparent 78%); }
 
+  /* ---------- human-first hero ---------- */
+  .rhero { position: relative; overflow: hidden; }
+  .rhero-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: 26px; align-items: start; }
+  @media (max-width: 1020px) { .rhero-grid { grid-template-columns: 1fr; } }
+  .rhero-orb-field { position: absolute; top: -120px; right: -120px; width: 480px; height: 480px;
+    pointer-events: none; z-index: 0; opacity: 0.9; }
+  .orb { position: absolute; inset: 90px; border-radius: 50%;
+    background: radial-gradient(circle at 34% 28%, color-mix(in srgb, var(--accent) 92%, #fff) 0%, var(--accent) 32%,
+      color-mix(in srgb, var(--accent) 38%, #06070b) 68%, #06070b 100%);
+    box-shadow: 0 0 120px var(--accent-soft), inset -18px -18px 60px rgba(0,0,0,0.45);
+    animation: orb-breathe 7s ease-in-out infinite; }
+  @keyframes orb-breathe { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.12); } }
+  .orb-ring { position: absolute; inset: 60px; border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); animation: sigil-spin 26s linear infinite; }
+  .orb-ring.r2 { inset: 30px; border-color: color-mix(in srgb, var(--accent) 18%, transparent); animation-duration: 40s; animation-direction: reverse; }
+  .breadcrumb { position: relative; font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.12em;
+    color: var(--text-faint); text-decoration: none; display: inline-block; margin-bottom: 20px; }
+  .breadcrumb:hover { color: var(--text-dim); }
+  .rid-row { position: relative; display: flex; align-items: center; gap: 16px; }
+  .rid-orb { width: 56px; height: 56px; border-radius: 50%; flex: none; position: relative;
+    background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--accent) 90%, #fff), var(--accent) 55%, color-mix(in srgb, var(--accent) 30%, #06070b) 100%);
+    box-shadow: 0 0 30px var(--accent-soft); }
+  .rid-name { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4vw, 46px); letter-spacing: 0.03em; }
+  .rid-role { position: relative; color: var(--accent); font-weight: 700; font-size: 16.5px; margin-top: 10px; }
+  .rid-lede { position: relative; margin-top: 14px; color: var(--text-dim); font-size: 15.5px; max-width: 560px; line-height: 1.7; }
+  .rid-drive { position: relative; margin-top: 12px; font-size: 13px; color: var(--text-faint); font-style: italic;
+    border-left: 2px solid var(--accent); padding-left: 12px; max-width: 540px; line-height: 1.6; }
+  .rid-status { position: relative; display: flex; align-items: center; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
+  .live-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700;
+    color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: 999px; padding: 5px 13px; }
+  .live-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: pulse-dot 2.2s ease-in-out infinite; }
+  .rid-updated { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-faint); }
+  .rid-quickstats { position: relative; display: flex; gap: 30px; margin-top: 22px; flex-wrap: wrap; }
+  .qs .n { font-family: var(--font-mono); font-weight: 700; font-size: 26px; color: var(--text); }
+  .qs .l { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .rid-ctas { position: relative; display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .rid-ctas button, .rid-ctas a { font-family: var(--font-body); }
+  .btn-talk { background: var(--accent); color: #06070b; border: none; border-radius: 999px; font-weight: 700;
+    font-size: 14.5px; padding: 12px 22px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-ghost { background: none; color: var(--text-dim); border: 1px solid var(--line); border-radius: 999px;
+    font-size: 14.5px; padding: 12px 22px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+
+  /* ---------- key findings row ---------- */
+  .kf-row { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 30px; }
+  .kf-card { border: 1px solid var(--line); border-radius: 10px; background: rgba(7,8,13,0.6); padding: 15px 16px; }
+  .kf-card .kf-icon { width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); display: grid; place-items: center; margin-bottom: 10px; }
+  .kf-card .kf-icon span { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .kf-card h4 { font-family: var(--font-display); font-size: 13.5px; font-weight: 700; line-height: 1.35; margin-bottom: 6px; }
+  .kf-card p { font-size: 12px; color: var(--text-dim); line-height: 1.55; }
+
+  /* ---------- chat panel ---------- */
+  .chat-panel { position: relative; border: 1px solid var(--line); border-radius: 12px;
+    background: linear-gradient(180deg, rgba(18,19,30,0.94), rgba(11,12,19,0.94)); display: flex; flex-direction: column;
+    max-height: 640px; overflow: hidden; }
+  .chat-head { display: flex; align-items: center; gap: 10px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+  .chat-head .co { width: 26px; height: 26px; border-radius: 50%; flex: none;
+    background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--accent) 90%, #fff), var(--accent) 60%, color-mix(in srgb, var(--accent) 25%, #06070b)); }
+  .chat-head b { font-family: var(--font-display); font-size: 14.5px; font-weight: 700; }
+  .chat-head .live-badge { margin-left: auto; padding: 3px 10px; font-size: 10.5px; }
+  .chat-body { flex: 1; overflow-y: auto; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; min-height: 220px; }
+  .chat-msg { max-width: 88%; font-size: 13.5px; line-height: 1.6; border-radius: 11px; padding: 10px 13px; }
+  .chat-msg.you { align-self: flex-end; background: rgba(148,163,184,0.1); color: var(--text); }
+  .chat-msg.bot { align-self: flex-start; background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent); color: var(--text-dim); }
+  .chat-msg.bot b { color: var(--accent); display: block; font-size: 10.5px; letter-spacing: 0.1em; margin-bottom: 4px; font-family: var(--font-mono); }
+  .chat-msg .csrc { margin-top: 7px; display: flex; flex-wrap: wrap; gap: 5px; }
+  .chat-msg .csrc a { font-family: var(--font-mono); font-size: 10px; color: var(--text-faint); text-decoration: none;
+    border: 1px solid var(--line-soft); border-radius: 5px; padding: 2px 6px; }
+  .chat-msg .csrc a:hover { color: var(--accent); border-color: var(--accent); }
+  .chat-prompts { padding: 12px 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 7px; }
+  .chat-chip { background: none; border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px;
+    font-size: 12px; padding: 7px 13px; cursor: pointer; font-family: var(--font-body); transition: border-color 0.2s, color 0.2s; }
+  .chat-chip:hover { border-color: var(--accent); color: var(--text); }
+  .chat-chip:disabled { opacity: 0.35; cursor: default; }
+  .chat-foot { padding: 10px 18px 14px; font-size: 10.5px; color: var(--text-faint); border-top: 1px solid var(--line-soft); }
+
+  /* ---------- telemetry 8 ---------- */
+  .tele8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .tele8 { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ---------- coverage by region ---------- */
+  .cov-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+  .cov-name { font-size: 12.5px; color: var(--text-dim); width: 150px; flex: none; }
+  .cov-track { flex: 1; height: 8px; border-radius: 4px; background: rgba(148,163,184,0.09); overflow: hidden; }
+  .cov-bar { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 55%, transparent)); }
+  .cov-pct { font-family: var(--font-mono); font-size: 11.5px; color: var(--text); width: 38px; text-align: right; flex: none; }
+
+  /* ---------- research feed lists (hardware / funding / flags) ---------- */
+  .feed-item { border-top: 1px solid var(--line-soft); padding: 12px 0; }
+  .feed-item:first-child { border-top: none; padding-top: 0; }
+  .feed-item .fk { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--accent); }
+  .feed-item h5 { font-family: var(--font-display); font-size: 13.5px; margin: 4px 0 4px; }
+  .feed-item p { font-size: 12.5px; color: var(--text-dim); line-height: 1.6; }
+  .feed-item .fn { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); margin-top: 4px; }
+
+  /* ---------- collapsible detail ---------- */
+  details.detail-block { border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+  details.detail-block summary { list-style: none; cursor: pointer; padding: 18px 24px; display: flex; align-items: center; gap: 10px; }
+  details.detail-block summary::-webkit-details-marker { display: none; }
+  details.detail-block summary .stick { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  details.detail-block summary .st { font-family: var(--font-display); font-weight: 700; font-size: 15px; }
+  details.detail-block summary .sn { margin-left: auto; font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); }
+  details.detail-block summary .sc { color: var(--text-faint); transition: transform 0.2s; }
+  details.detail-block[open] summary .sc { transform: rotate(180deg); }
+  details.detail-block .detail-inner { padding: 6px 24px 26px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+  details.detail-block .detail-inner .hud { border: 1px solid var(--line-soft); }
+
   /* ---------- ops bar ---------- */
   .ops-bar { position: sticky; top: 0; z-index: 60; border-bottom: 1px solid var(--line);
     background: rgba(6,7,11,0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
@@ -343,11 +450,88 @@ function page(r) {
 
 <main class="deck">
 
-  <section class="hud span-12">
-    <div class="hud-label"><span class="tick"></span>The ${r.name} Report<span class="right">ONE STANDING DOCUMENT &#183; UPDATED EVERY RESEARCH SESSION &#183; <span id="report-stamp"></span></span></div>
-    <div class="report-head">
-      <div class="report-title">The <em>${r.name}</em> Report</div>
+  <section class="rhero span-12">
+    <div class="rhero-orb-field" aria-hidden="true"><div class="orb"></div><div class="orb-ring"></div><div class="orb-ring r2"></div></div>
+    <div class="rhero-grid">
+      <div>
+        <a class="breadcrumb" href="/#resolvers">&#8592; ALL RESOLVERS</a>
+        <div class="rc-desig" style="position:relative;">${r.designation}</div>
+        <div class="rid-row">
+          <span class="rid-orb" aria-hidden="true"></span>
+          <span class="rid-name">${r.name}</span>
+        </div>
+        <div class="rid-role">${asciiSafe(r.role)}</div>
+        <p class="rid-lede">${asciiSafe(r.one_liner)}</p>
+        ${r.drive ? `<p class="rid-drive">${asciiSafe(r.drive)}</p>` : ""}
+        <div class="rid-status">
+          <span class="live-badge"><span class="dot"></span><span id="ops-status-v2">&#8230;</span></span>
+          <span class="rid-updated" id="report-stamp"></span>
+        </div>
+        <div class="rid-quickstats">
+          <div class="qs"><div class="n" id="s-orgs">&#8211;</div><div class="l">orgs mapped</div></div>
+          <div class="qs"><div class="n" id="s-countries">&#8211;</div><div class="l">countries</div></div>
+          <div class="qs"><div class="n" id="s-briefs">&#8211;</div><div class="l">updates</div></div>
+        </div>
+        <div class="rid-ctas">
+          <button class="btn-talk" type="button" onclick="document.getElementById('chat-panel').scrollIntoView({behavior:'smooth',block:'center'})">&#128172; Talk to ${r.name}</button>
+          <a class="btn-ghost" href="#detail" onclick="document.getElementById('detail-block').open=true;">View research detail</a>
+          <a class="btn-ghost" href="/data/${r.id}-organizations.json" download>Download the ledger</a>
+        </div>
+        <div class="kf-row" id="kf-row"></div>
+      </div>
+
+      <div class="chat-panel" id="chat-panel">
+        <div class="chat-head">
+          <span class="co" aria-hidden="true"></span>
+          <b>Chat with ${r.name}</b>
+          <span class="live-badge"><span class="dot"></span>LIVE</span>
+        </div>
+        <div class="chat-body" id="chat-body">
+          <p class="term-empty" style="font-size:12.5px;">${r.name} reports in after its first research session. Standing question until then: <em>${asciiSafe(r.first_question)}</em></p>
+        </div>
+        <div class="chat-prompts" id="chat-prompts"></div>
+        <div class="chat-foot">Answers are compiled from ${r.name}'s own published findings and Commons data, not generated live. Every cited claim links to its source.</div>
+      </div>
     </div>
+  </section>
+
+  <section class="hud span-12">
+    <div class="hud-label"><span class="tick"></span>Live telemetry<span class="right" id="tele-stamp"></span></div>
+    <div class="tele8">
+      <div class="tele"><div class="n" id="s-orgs2">&#8211;</div><div class="l">organizations mapped</div><div class="d">COMMONS RECORDS</div></div>
+      <div class="tele"><div class="n" id="s-countries2">&#8211;</div><div class="l">headquarters countries</div><div class="d">HQ SPREAD</div></div>
+      <div class="tele"><div class="n" id="s-sources">&#8211;</div><div class="l">source citations</div><div class="d">VERIFIABILITY</div></div>
+      <div class="tele"><div class="n" id="s-briefs2">&#8211;</div><div class="l">report updates</div><div class="d">PUBLISHED</div></div>
+      <div class="tele"><div class="n" id="s-intros">&#8211;</div><div class="l">introductions drafted</div><div class="d">CONNECTION ENGINE</div></div>
+      <div class="tele"><div class="n" id="s-hardware">&#8211;</div><div class="l">hardware / software proposed</div><div class="d">BUILD LEADS</div></div>
+      <div class="tele"><div class="n" id="s-funding">&#8211;</div><div class="l">funding leads flagged</div><div class="d">MONEY WORTH CHASING</div></div>
+      <div class="tele"><div class="n" id="s-flags">&#8211;</div><div class="l">accountability flags</div><div class="d">WORTH A CLOSER LOOK</div></div>
+    </div>
+  </section>
+
+  <section class="hud span-7">
+    <div class="hud-label"><span class="tick"></span>Coverage by region<span class="right">SHARE OF THE MAPPED COMMONS</span></div>
+    <div id="coverage"><p class="term-empty" style="font-size:12.5px;">Awaiting the first mapped records.</p></div>
+  </section>
+
+  <section class="hud span-5">
+    <div class="hud-label"><span class="tick"></span>Connection engine<span class="right">CONSENT-FIRST</span></div>
+    <div class="cc-funnel">
+      <div class="cell"><div class="n" id="cx-proposed">0</div><div class="l">proposed</div></div>
+      <div class="cell"><div class="n" id="cx-approved">0</div><div class="l">approved</div></div>
+      <div class="cell"><div class="n" id="cx-sent">0</div><div class="l">sent</div></div>
+      <div class="cell"><div class="n" id="cx-connected">0</div><div class="l">connected</div></div>
+    </div>
+    <div id="cx-confirmed"></div>
+    <p style="font-size:11.5px;color:var(--text-faint);margin-top:12px;line-height:1.6;">${r.name} drafts introductions, cites them claim by claim, and a human approves each one before anything sends. Who is being introduced stays private until both organizations confirm.</p>
+  </section>
+
+  <details class="detail-block span-12" id="detail-block">
+    <summary><span class="stick"></span><span class="st">Full research detail</span><span class="sn">Mandate, chain, standing sources, method distribution, full ledger, hardware and funding leads, run log</span><span class="sc">&#9662;</span></summary>
+    <div class="detail-inner">
+
+  <section class="hud span-12">
+    <div class="hud-label"><span class="tick"></span>The ${r.name} Report<span class="right">ONE STANDING DOCUMENT &#183; UPDATED EVERY RESEARCH SESSION</span></div>
     <p class="report-premise"><b style="color:var(--text);">The premise:</b> ${asciiSafe(r.report.premise)}</p>
     <div class="report-status" id="report-status" hidden><span id="report-status-t"></span><span class="cursor"></span></div>
     ${recommissionNote}
@@ -375,21 +559,10 @@ function page(r) {
     </div>
   </section>
 
-  <section class="hud span-5">
-    <div class="hud-label"><span class="tick"></span>Live telemetry<span class="right" id="tele-stamp"></span></div>
-    <div class="tele-grid">
-      <div class="tele"><div class="n" id="s-orgs">&#8211;</div><div class="l">organizations mapped</div><div class="d">COMMONS RECORDS</div></div>
-      <div class="tele"><div class="n" id="s-countries">&#8211;</div><div class="l">headquarters countries</div><div class="d">HQ SPREAD</div></div>
-      <div class="tele"><div class="n" id="s-sources">&#8211;</div><div class="l">source citations</div><div class="d">VERIFIABILITY</div></div>
-      <div class="tele"><div class="n" id="s-briefs">&#8211;</div><div class="l">report updates</div><div class="d">PUBLISHED</div></div>
-    </div>
-  </section>
-
   <section class="hud span-7">
     <div class="hud-label"><span class="tick"></span>Mandate<span class="right">${r.designation} &#183; ${asciiSafe(r.domain).toUpperCase()}</span></div>
     <div class="mandate-lead">${asciiSafe(r.one_liner)}</div>
     <div class="mandate-q">"${asciiSafe(r.first_question)}"</div>
-    ${r.drive ? `<div class="drive"><div class="drive-k">THE DRIVE &#183; WHAT ${r.name} CANNOT LET GO OF</div><p>${asciiSafe(r.drive)}</p></div>` : ""}
     <ul class="mandate-tracks">
           ${tracking}
     </ul>
@@ -401,7 +574,7 @@ function page(r) {
     </div>
   </section>
 
-  <section class="hud span-7">
+  <section class="hud span-5">
     <div class="hud-label"><span class="tick"></span>The research chain<span class="right">HOW A SESSION THINKS</span></div>
     <div class="chain">
       ${chainSteps.map(([n, name, sub, text]) => `<div class="chain-step"><span class="chain-num">${n}</span><span class="chain-name"><b>${name}</b><span>${sub}</span></span><span class="chain-text">${asciiSafe(text || "")}</span></div>`).join("\n      ")}
@@ -419,12 +592,27 @@ function page(r) {
     <div id="methods"><p class="term-empty" style="font-size:12px;">No records yet. This panel draws itself from the dataset.</p></div>
   </section>
 
-  <section class="hud span-4">
-    <div class="hud-label"><span class="tick"></span>Regional coverage<span class="right">OPERATING REGIONS</span></div>
+  <section class="hud span-3">
+    <div class="hud-label"><span class="tick"></span>Regional coverage<span class="right">FULL</span></div>
     <div class="region-grid" id="regions"><p class="term-empty" style="font-size:12px;">Awaiting the first mapped records.</p></div>
   </section>
 
   <section class="hud span-4">
+    <div class="hud-label"><span class="tick"></span>Hardware &amp; software proposed<span class="right">BUILD LEADS</span></div>
+    <div id="hardware-feed"><p class="term-empty" style="font-size:12px;">Not yet. A proposal ships only when a session's research earns one; an honest zero beats a fake spec.</p></div>
+  </section>
+
+  <section class="hud span-6">
+    <div class="hud-label"><span class="tick"></span>Funding leads<span class="right">MONEY WORTH CHASING</span></div>
+    <div id="funding-feed"><p class="term-empty" style="font-size:12px;">Not yet. Only real, currently open, cited leads publish here.</p></div>
+  </section>
+
+  <section class="hud span-6">
+    <div class="hud-label"><span class="tick"></span>Accountability flags<span class="right">WORTH A CLOSER LOOK</span></div>
+    <div id="flags-feed"><p class="term-empty" style="font-size:12px;">Not yet. A flag requires a specific, cited claim-versus-check mismatch, never absence of evidence alone.</p></div>
+  </section>
+
+  <section class="hud span-12">
     <div class="hud-label"><span class="tick"></span>Run log<span class="right">GENUINE EVENTS ONLY</span></div>
     <div class="term" id="runlog"><p class="term-empty">No research sessions logged under this mandate yet.</p></div>
   </section>
@@ -453,17 +641,8 @@ function page(r) {
     </div>
   </section>
 
-  <section class="hud span-5">
-    <div class="hud-label"><span class="tick"></span>Connection engine<span class="right">CONSENT-FIRST</span></div>
-    <div class="cc-funnel">
-      <div class="cell"><div class="n" id="cx-proposed">0</div><div class="l">proposed</div></div>
-      <div class="cell"><div class="n" id="cx-approved">0</div><div class="l">approved</div></div>
-      <div class="cell"><div class="n" id="cx-sent">0</div><div class="l">sent</div></div>
-      <div class="cell"><div class="n" id="cx-connected">0</div><div class="l">connected</div></div>
     </div>
-    <div id="cx-confirmed"></div>
-    <p style="font-size:12px;color:var(--text-faint);margin-top:12px;line-height:1.65;">The end of the research chain. When the map shows two organizations that should know each other, ${r.name} drafts the introduction, cites it claim by claim, and a human approves it before anything sends. Counts are public at every stage; who is being introduced stays private until both organizations confirm. Low volume, high care, opt-out honored forever. Every number here is generated from the connection ledger.</p>
-  </section>
+  </details>
 
   <section class="hud span-7" id="follow">
     <div class="hud-label"><span class="tick"></span>Subscribe to the ${r.name} Report<span class="right">ONE LIST, THIS MANDATE ONLY</span></div>
@@ -540,7 +719,7 @@ function page(r) {
       document.getElementById("report-status").hidden = false;
       document.getElementById("report-status-t").textContent = rep.status_line;
     }
-    if (rep.updated) document.getElementById("report-stamp").textContent = "LAST UPDATE " + rep.updated;
+    if (rep.updated) document.getElementById("report-stamp").textContent = "Last update " + rep.updated;
     if (rep.findings && rep.findings.length) {
       document.getElementById("findings").innerHTML = rep.findings.map(function (f, i) {
         var srcs = (f.sources || []).map(function (s) {
@@ -574,6 +753,88 @@ function page(r) {
         }).join(" &#183; ");
       }
     }
+
+    // Key findings row (above the fold): the most recent published update
+    // titles and their first summary point, straight from the report archive.
+    var kf = document.getElementById("kf-row");
+    if (rep.updates && rep.updates.length) {
+      kf.innerHTML = rep.updates.slice(0, 4).map(function (u) {
+        return '<div class="kf-card"><div class="kf-icon"><span></span></div><h4>' + esc(u.title) +
+          '</h4><p>' + esc((u.summary_points || [])[0] || "") + "</p></div>";
+      }).join("");
+    }
+
+    // Chat panel: pre-set questions, real answers, no API call.
+    var body = document.getElementById("chat-body");
+    var prompts = document.getElementById("chat-prompts");
+    var qa = rep.qa || [];
+    if (qa.length) {
+      body.innerHTML = "";
+      var asked = {};
+      var ask = function (item) {
+        if (asked[item.id]) return;
+        asked[item.id] = true;
+        var srcs = (item.sources || []).map(function (s) {
+          return '<a href="' + esc(s) + '" rel="noopener" target="_blank">' + esc(host(s)) + "</a>";
+        }).join("");
+        body.insertAdjacentHTML("beforeend",
+          '<div class="chat-msg you">' + esc(item.q) + "</div>" +
+          '<div class="chat-msg bot"><b>' + esc(${JSON.stringify(r.name)}) + '</b>' + esc(item.a) +
+          (srcs ? '<div class="csrc">' + srcs + "</div>" : "") + "</div>");
+        body.scrollTop = body.scrollHeight;
+        renderChips();
+      };
+      var renderChips = function () {
+        var remaining = qa.filter(function (item) { return !asked[item.id]; });
+        prompts.innerHTML = remaining.map(function (item) {
+          return '<button class="chat-chip" type="button" data-qa="' + esc(item.id) + '">' + esc(item.q) + "</button>";
+        }).join("");
+        Array.prototype.forEach.call(prompts.querySelectorAll("[data-qa]"), function (btn) {
+          btn.addEventListener("click", function () {
+            var item = qa.find(function (x) { return x.id === btn.getAttribute("data-qa"); });
+            if (item) ask(item);
+          });
+        });
+      };
+      ask(qa[0]);
+    }
+
+    // Coverage by region: real distribution, computed from the Commons.
+    var cov = document.getElementById("coverage");
+    if (rep.coverage_by_region && rep.coverage_by_region.length) {
+      cov.innerHTML = rep.coverage_by_region.map(function (c) {
+        return '<div class="cov-row"><span class="cov-name">' + esc(c.name) + '</span><span class="cov-track"><span class="cov-bar" style="width:' + c.pct + '%"></span></span><span class="cov-pct">' + c.pct + "%</span></div>";
+      }).join("");
+    }
+
+    // Hardware, funding, accountability: three more real, gated feeds.
+    var setFeed = function (elId, items, render) {
+      var el = document.getElementById(elId);
+      if (items && items.length) el.innerHTML = items.map(render).join("");
+    };
+    setFeed("hardware-feed", rep.hardware_proposed, function (h) {
+      var srcs = (h.sources || []).map(function (s) { return '<a href="' + esc(s) + '" rel="noopener">' + esc(host(s)) + "</a>"; }).join(" ");
+      return '<div class="feed-item"><span class="fk">' + esc(h.proposed || "") + '</span><h5>' + esc(h.name) + "</h5><p>" + esc(h.description) +
+        (h.cost_note ? " <b>" + esc(h.cost_note) + "</b>" : "") + '</p><div class="fn">' + srcs + "</div></div>";
+    });
+    setFeed("funding-feed", rep.funding_leads, function (f) {
+      var srcs = (f.sources || []).map(function (s) { return '<a href="' + esc(s) + '" rel="noopener">' + esc(host(s)) + "</a>"; }).join(" ");
+      return '<div class="feed-item"><span class="fk">' + esc(f.kind || "") + '</span><h5>' + esc(f.name) + "</h5><p>" + esc(f.relevance) +
+        (f.amount_note ? " <b>" + esc(f.amount_note) + "</b>" : "") + '</p><div class="fn">' + srcs + "</div></div>";
+    });
+    setFeed("flags-feed", rep.accountability_flags, function (fl) {
+      var srcs = (fl.sources || []).map(function (s) { return '<a href="' + esc(s) + '" rel="noopener">' + esc(host(s)) + "</a>"; }).join(" ");
+      return '<div class="feed-item"><span class="fk">' + esc(fl.flagged || "") + '</span><h5>' + esc(fl.org) + "</h5><p>" + esc(fl.concern) + '</p><div class="fn">' + srcs + "</div></div>";
+    });
+
+    var setN = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v; };
+    if (rep.connections && rep.connections.funnel) {
+      var totalIntros = Object.values(rep.connections.funnel).reduce(function (a, b) { return a + b; }, 0);
+      setN("s-intros", totalIntros);
+    }
+    setN("s-hardware", (rep.hardware_proposed || []).length);
+    setN("s-funding", (rep.funding_leads || []).length);
+    setN("s-flags", (rep.accountability_flags || []).length);
   }
 
   document.getElementById("update-toggle").addEventListener("click", function () {
@@ -613,13 +874,14 @@ function page(r) {
       var net = await (await fetch("/data/network.json", { cache: "no-store" })).json();
       var me = net.resolvers.find(function (x) { return x.id === "${r.id}"; });
       if (me) {
-        document.getElementById("ops-status-v").textContent =
-          me.status === "active" ? "LIVE" : me.status === "commissioning" ? "COMMISSIONING" : "DOSSIER";
+        var statusLabel = me.status === "active" ? "LIVE" : me.status === "commissioning" ? "COMMISSIONING" : "DOSSIER";
+        document.getElementById("ops-status-v").textContent = statusLabel;
+        document.getElementById("ops-status-v2").textContent = statusLabel;
         document.getElementById("tele-stamp").textContent = "GENERATED " + fmtTs(net.generated_at);
-        document.getElementById("s-orgs").textContent = me.orgs_mapped.toLocaleString();
-        document.getElementById("s-countries").textContent = me.countries;
+        ["s-orgs", "s-orgs2"].forEach(function (id) { document.getElementById(id).textContent = me.orgs_mapped.toLocaleString(); });
+        ["s-countries", "s-countries2"].forEach(function (id) { document.getElementById(id).textContent = me.countries; });
         document.getElementById("s-sources").textContent = me.sources_cited.toLocaleString();
-        document.getElementById("s-briefs").textContent = me.briefs_published;
+        ["s-briefs", "s-briefs2"].forEach(function (id) { document.getElementById(id).textContent = me.briefs_published; });
         var since = me.mandate_start || "0000";
         var mine = net.pulse.filter(function (ev) {
           return ev.resolver === "${r.id}" && ev.ts.slice(0, 10) >= since;

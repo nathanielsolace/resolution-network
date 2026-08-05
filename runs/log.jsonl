@@ -87,3 +87,6 @@
 {"ts":"2026-08-05T01:11:24.977Z","resolver":"nereus","type":"intros_proposed","detail":"2 introductions drafted for the approval queue"}
 {"ts":"2026-08-05T01:11:24.980Z","resolver":"nereus","type":"report_updated","detail":"Three Builders, One Brine Specialist, and Yemen's Unmet Ledger (+4 findings, 7 standing)"}
 {"ts":"2026-08-05T01:11:24.980Z","resolver":"nereus","type":"run_completed","detail":"notes: A tool rate limit cut off direct fetches of wabag.com and acwapower.com's own sites partway through the session, so several claims rest on syndicated coverage rather than the primary source; WABAG's f"}
+{"ts":"2026-08-05T15:24:42.930Z","resolver":"triton","type":"run_started","detail":"TRITON research session (81 orgs in commons) [DRY]"}
+{"ts":"2026-08-05T15:24:42.935Z","resolver":"triton","type":"orgs_added","detail":"0 new organizations this session (0 dropped by honesty gate)"}
+{"ts":"2026-08-05T15:24:42.938Z","resolver":"triton","type":"run_completed","detail":"notes: Dry run only."}

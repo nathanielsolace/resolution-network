@@ -127,7 +127,7 @@ function page(r) {
   .rid-name { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 4vw, 46px); letter-spacing: 0.03em; }
   .rid-role { position: relative; color: var(--accent); font-weight: 700; font-size: 16.5px; margin-top: 10px; }
   .rid-lede { position: relative; margin-top: 14px; color: var(--text-dim); font-size: 15.5px; max-width: 560px; line-height: 1.7; }
-  .rid-drive { position: relative; margin-top: 12px; font-size: 13px; color: var(--text-faint); font-style: italic;
+  .rid-drive { position: relative; margin-top: 12px; font-size: 13px; color: var(--text-dim); font-style: italic;
     border-left: 2px solid var(--accent); padding-left: 12px; max-width: 540px; line-height: 1.6; }
   .rid-status { position: relative; display: flex; align-items: center; gap: 14px; margin-top: 22px; flex-wrap: wrap; }
   .live-badge { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 700;
@@ -140,16 +140,19 @@ function page(r) {
   .rid-ctas { position: relative; display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
   .rid-ctas button, .rid-ctas a { font-family: var(--font-body); }
   .btn-talk { background: var(--accent); color: #06070b; border: none; border-radius: 999px; font-weight: 700;
-    font-size: 14.5px; padding: 12px 22px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    font-size: 14.5px; padding: 12px 22px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s, filter 0.2s; }
+  .btn-talk:hover, .btn-talk:focus-visible { transform: translateY(-2px); box-shadow: var(--lift-shadow); filter: brightness(1.08); }
   .btn-ghost { background: none; color: var(--text-dim); border: 1px solid var(--line); border-radius: 999px;
-    font-size: 14.5px; padding: 12px 22px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--text); }
+    font-size: 14.5px; padding: 12px 22px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s, border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--accent); color: var(--text); transform: translateY(-2px); box-shadow: var(--lift-shadow); }
 
   /* ---------- key findings row ---------- */
   .kf-row { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 30px; }
   .kf-card { border: 1px solid var(--line); border-radius: 10px; background: rgba(7,8,13,0.6); padding: 15px 16px; }
-  .kf-card .kf-icon { width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); display: grid; place-items: center; margin-bottom: 10px; }
-  .kf-card .kf-icon span { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+  .kf-card .kf-icon { width: 30px; height: 30px; border-radius: 8px; background: var(--accent-soft); display: grid; place-items: center; margin-bottom: 10px;
+    font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--accent); }
   .kf-card h4 { font-family: var(--font-display); font-size: 13.5px; font-weight: 700; line-height: 1.35; margin-bottom: 6px; }
   .kf-card p { font-size: 12px; color: var(--text-dim); line-height: 1.55; }
 
@@ -173,8 +176,9 @@ function page(r) {
   .chat-msg .csrc a:hover { color: var(--accent); border-color: var(--accent); }
   .chat-prompts { padding: 12px 18px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 7px; }
   .chat-chip { background: none; border: 1px solid var(--line); color: var(--text-dim); border-radius: 999px;
-    font-size: 12px; padding: 7px 13px; cursor: pointer; font-family: var(--font-body); transition: border-color 0.2s, color 0.2s; }
-  .chat-chip:hover { border-color: var(--accent); color: var(--text); }
+    font-size: 12px; padding: 7px 13px; cursor: pointer; font-family: var(--font-body);
+    transition: border-color 0.2s, color 0.2s, transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s; }
+  .chat-chip:hover, .chat-chip:focus-visible { border-color: var(--accent); color: var(--text); transform: translateY(-1px); box-shadow: var(--lift-shadow); }
   .chat-chip:disabled { opacity: 0.35; cursor: default; }
   .chat-foot { padding: 10px 18px 14px; font-size: 10.5px; color: var(--text-faint); border-top: 1px solid var(--line-soft); }
 
@@ -214,6 +218,12 @@ function page(r) {
     background: rgba(6,7,11,0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
   .ops-bar-inner { max-width: 1360px; margin: 0 auto; padding: 11px 24px;
     display: flex; align-items: center; gap: 15px; }
+  .ops-home { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text);
+    flex: none; padding: 4px 2px; border-radius: 8px; transition: opacity 0.2s; }
+  .ops-home:hover { opacity: 0.75; }
+  .ops-home-word { font-family: var(--font-display); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; white-space: nowrap; }
+  @media (max-width: 760px) { .ops-home-word { display: none; } }
+  .ops-divider { width: 1px; height: 26px; background: var(--line); flex: none; }
   .ops-sigil { width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--accent) 55%, transparent);
     display: grid; place-items: center; flex: none; position: relative; }
   .ops-sigil::before { content: ""; position: absolute; inset: -1.5px; border-radius: 50%;
@@ -221,6 +231,9 @@ function page(r) {
   @keyframes sigil-spin { to { transform: rotate(360deg); } }
   .ops-id .n { font-family: var(--font-display); font-weight: 800; font-size: 17px; letter-spacing: 0.06em; }
   .ops-id .r { font-size: 12px; color: var(--accent); font-weight: 600; margin-top: 1px; }
+  .ops-live-link { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; color: var(--text-faint);
+    text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; white-space: nowrap; }
+  .ops-live-link:hover { color: var(--text); border-color: var(--text-dim); }
   .ops-meta { margin-left: auto; display: flex; align-items: center; gap: 18px; }
   .ops-chip { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.14em; color: var(--text-faint); }
   .ops-chip b { color: var(--text-dim); font-weight: 500; }
@@ -421,7 +434,7 @@ function page(r) {
   .cc-funnel .l { font-size: 10.5px; color: var(--text-dim); margin-top: 2px; }
   .truth-foot { grid-column: span 12; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.12em;
     color: var(--text-faint); text-transform: uppercase; text-align: center; padding-top: 6px; }
-  body.stream .ops-bar .ops-follow, body.stream .nav-back { display: none; }
+  body.stream .ops-bar .ops-follow { display: none; }
 </style>
 </head>
 <body>
@@ -429,6 +442,11 @@ function page(r) {
 
 <div class="ops-bar">
   <div class="ops-bar-inner">
+    <a class="ops-home" href="/" aria-label="Resolution Network home">
+      <span class="aperture" style="width:20px;height:20px;"></span>
+      <span class="ops-home-word">RESOLUTION NETWORK</span>
+    </a>
+    <span class="ops-divider" aria-hidden="true"></span>
     <span class="ops-sigil">${sigilSvg(r, 22)}</span>
     <div class="ops-id">
       <div class="n">${r.name}</div>
@@ -438,14 +456,11 @@ function page(r) {
       <span class="ops-chip hide-sm">${r.designation}</span>
       <span class="ops-chip hide-sm">ENGINE <b>CLAUDE SONNET 5</b></span>
       <span class="ops-chip" id="ops-status">STATUS <b id="ops-status-v">&#8230;</b></span>
+      <a class="ops-live-link hide-sm" href="/live.html">LIVE VIEW</a>
       <span class="ops-clock" id="clock">--:--:-- UTC</span>
       <a class="ops-follow" href="#follow">Follow</a>
     </div>
   </div>
-</div>
-<div class="wrap nav-back" style="max-width:1360px;padding:14px 24px 0;">
-  <a href="/" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;color:var(--text-faint);text-decoration:none;">&#8592; RESOLUTION NETWORK</a>
-  <a href="/live.html" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.14em;color:var(--text-faint);text-decoration:none;margin-left:18px;">NETWORK LIVE VIEW</a>
 </div>
 
 <main class="deck">
@@ -759,7 +774,8 @@ function page(r) {
     var kf = document.getElementById("kf-row");
     if (rep.updates && rep.updates.length) {
       kf.innerHTML = rep.updates.slice(0, 4).map(function (u) {
-        return '<div class="kf-card"><div class="kf-icon"><span></span></div><h4>' + esc(u.title) +
+        var short = (u.date || "").slice(5).replace("-", "/");
+        return '<div class="kf-card"><div class="kf-icon">' + esc(short) + '</div><h4>' + esc(u.title) +
           '</h4><p>' + esc((u.summary_points || [])[0] || "") + "</p></div>";
       }).join("");
     }

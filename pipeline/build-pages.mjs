@@ -213,6 +213,10 @@ function page(r) {
   .mandate-tracks li { display: flex; gap: 11px; padding: 8px 0; font-size: 14px; color: var(--text-dim); line-height: 1.6;
     border-top: 1px solid var(--line-soft); }
   .mandate-tracks li::before { content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--accent); flex: none; margin-top: 7px; }
+  .drive { margin-top: 16px; border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line)); border-radius: 9px;
+    background: var(--accent-soft); padding: 14px 16px; }
+  .drive-k { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.16em; color: var(--accent); margin-bottom: 6px; }
+  .drive p { font-size: 13.5px; color: var(--text); line-height: 1.7; font-style: italic; }
   .spec { margin-top: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; }
   @media (max-width: 720px) { .spec { grid-template-columns: 1fr; } }
   .spec-row { padding: 10px 0; border-top: 1px solid var(--line-soft); }
@@ -385,6 +389,7 @@ function page(r) {
     <div class="hud-label"><span class="tick"></span>Mandate<span class="right">${r.designation} &#183; ${asciiSafe(r.domain).toUpperCase()}</span></div>
     <div class="mandate-lead">${asciiSafe(r.one_liner)}</div>
     <div class="mandate-q">"${asciiSafe(r.first_question)}"</div>
+    ${r.drive ? `<div class="drive"><div class="drive-k">THE DRIVE &#183; WHAT ${r.name} CANNOT LET GO OF</div><p>${asciiSafe(r.drive)}</p></div>` : ""}
     <ul class="mandate-tracks">
           ${tracking}
     </ul>
@@ -428,11 +433,12 @@ function page(r) {
     <div class="hud-label"><span class="tick"></span>The ledger<span class="right">THE ACTUAL DATASET, NOT A PICTURE OF IT</span></div>
     <div class="ledger-purpose">
       <p><b>What this is</b>${r.name}'s working dataset: every organization it has verified in this domain, one row per record, with the source URLs that establish each one. Records enter only through the honesty gate; anything unsourced is quarantined, never published.</p>
-      <p><b>What you can do with it</b>Filter it, download it as JSON, cite it, build on it. Each source link opens the page that establishes the record. When the public repository opens, corrections land here too, in the open record.</p>
+      <p><b>What you can do with it</b>Filter it, download it as JSON, cite it, build on it. Each source link opens the page that establishes the record. The full dataset and pipeline live in the open repository; corrections land there, in the open record.</p>
     </div>
     <div class="ledger-actions">
       <a href="/data/${r.id}-organizations.json" download>DOWNLOAD JSON</a>
       <a href="/data/${r.id}-report.json" download>REPORT DATA</a>
+      <a href="https://github.com/nathanielsolace/resolution-network" rel="noopener" target="_blank">OPEN REPOSITORY</a>
       <a href="/protocol.html#record-contract">THE RECORD CONTRACT</a>
     </div>
     <div class="ledger-tools">
@@ -450,12 +456,13 @@ function page(r) {
   <section class="hud span-5">
     <div class="hud-label"><span class="tick"></span>Connection engine<span class="right">CONSENT-FIRST</span></div>
     <div class="cc-funnel">
-      <div class="cell"><div class="n">0</div><div class="l">proposed</div></div>
-      <div class="cell"><div class="n">0</div><div class="l">approved</div></div>
-      <div class="cell"><div class="n">0</div><div class="l">sent</div></div>
-      <div class="cell"><div class="n">0</div><div class="l">confirmed</div></div>
+      <div class="cell"><div class="n" id="cx-proposed">0</div><div class="l">proposed</div></div>
+      <div class="cell"><div class="n" id="cx-approved">0</div><div class="l">approved</div></div>
+      <div class="cell"><div class="n" id="cx-sent">0</div><div class="l">sent</div></div>
+      <div class="cell"><div class="n" id="cx-connected">0</div><div class="l">connected</div></div>
     </div>
-    <p style="font-size:12px;color:var(--text-faint);margin-top:12px;line-height:1.65;">The end of the research chain. When the map shows two organizations that should know each other, ${r.name} drafts the introduction, cites it claim by claim, and a human approves it before anything sends. Low volume, high care, opt-out honored forever. These zeros are honest; watching them move is the point.</p>
+    <div id="cx-confirmed"></div>
+    <p style="font-size:12px;color:var(--text-faint);margin-top:12px;line-height:1.65;">The end of the research chain. When the map shows two organizations that should know each other, ${r.name} drafts the introduction, cites it claim by claim, and a human approves it before anything sends. Counts are public at every stage; who is being introduced stays private until both organizations confirm. Low volume, high care, opt-out honored forever. Every number here is generated from the connection ledger.</p>
   </section>
 
   <section class="hud span-7" id="follow">
@@ -578,6 +585,21 @@ function page(r) {
     try {
       var rep = await (await fetch("/data/${r.id}-report.json", { cache: "no-store" })).json();
       renderReport(rep);
+      if (rep.connections && rep.connections.funnel) {
+        var f = rep.connections.funnel;
+        ["proposed", "approved", "sent", "connected"].forEach(function (k) {
+          var el = document.getElementById("cx-" + k);
+          if (el) el.textContent = f[k] || 0;
+        });
+        var conf = rep.connections.confirmed || [];
+        if (conf.length) {
+          document.getElementById("cx-confirmed").innerHTML =
+            '<div class="report-h" style="margin-top:14px;"><span class="tick"></span>Confirmed connections</div>' +
+            conf.map(function (c) {
+              return '<div class="finding"><span class="fi">&#10003;</span><div class="ft">' + esc(c.org_a) + " &#8596; " + esc(c.org_b) + "<div class=\\"fs\\" style=\\"color:var(--text-faint);font-size:12px;margin-top:4px;\\">" + esc(c.overlap) + "</div></div></div>";
+            }).join("");
+        }
+      }
       (rep.watches || []).forEach(function (w, i) {
         var el = document.querySelector('[data-cite="' + i + '"]');
         if (!el) return;

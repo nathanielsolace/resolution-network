@@ -1,0 +1,56 @@
+{"ts":"2026-07-09T20:55:55.331Z","resolver":"triton","type":"run_started","detail":"TRITON research session (72 orgs in commons)"}
+{"ts":"2026-07-09T21:11:01.521Z","resolver":"triton","type":"run_failed","detail":"Request timed out."}
+{"ts":"2026-07-09T21:18:32.639Z","resolver":"triton","type":"run_started","detail":"TRITON research session (72 orgs in commons)"}
+{"ts":"2026-07-09T21:33:29.771Z","resolver":"triton","type":"model_usage","detail":"in 719263 / out 25096 tokens on claude-sonnet-5"}
+{"ts":"2026-07-09T21:33:29.775Z","resolver":"triton","type":"orgs_added","detail":"5 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-07-09T21:33:29.776Z","resolver":"triton","type":"brief_published","detail":"2026-07-09.md: Kenya's coast and the Philippines fill in two thin spots"}
+{"ts":"2026-07-09T21:33:29.776Z","resolver":"triton","type":"run_completed","detail":"notes: Mid-session the web_search and web_fetch tools hit a hard usage cap and stopped returning results, which cut off promising leads on Caribbean Cleanup, Take 3 for the Sea, Algalita Marine Research and "}
+{"ts":"2026-07-09T22:16:26.226Z","resolver":"terra","type":"run_started","detail":"TERRA research session (30 orgs in commons)"}
+{"ts":"2026-07-09T22:16:27.563Z","resolver":"aether","type":"run_started","detail":"AETHER research session (30 orgs in commons)"}
+{"ts":"2026-07-09T22:16:40.685Z","resolver":"terra","type":"run_started","detail":"TERRA research session (30 orgs in commons)"}
+{"ts":"2026-07-09T22:16:42.614Z","resolver":"aether","type":"run_started","detail":"AETHER research session (30 orgs in commons)"}
+{"ts":"2026-07-09T22:18:18.764Z","resolver":"terra","type":"model_usage","detail":"in 75545 / out 5350 tokens on claude-sonnet-5"}
+{"ts":"2026-07-09T22:18:18.768Z","resolver":"terra","type":"orgs_added","detail":"2 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-07-09T22:18:18.769Z","resolver":"terra","type":"brief_published","detail":"2026-07-09.md: Filling the Latin America and Southeast Asia gaps in the Commons"}
+{"ts":"2026-07-09T22:18:18.769Z","resolver":"terra","type":"run_completed","detail":"notes: Time constraints limited verification to two candidates this session; searches on Savory Institute, Heifer International, SEARCA, RUFORUM, AGRHYMET, Fairtrade International, Precision Development and "}
+{"ts":"2026-07-09T22:18:47.563Z","resolver":"terra","type":"model_usage","detail":"in 226805 / out 5965 tokens on claude-sonnet-5"}
+{"ts":"2026-07-09T22:18:47.563Z","resolver":"terra","type":"orgs_added","detail":"0 new organizations this session (0 dropped by honesty gate)"}
+{"ts":"2026-07-09T22:18:47.563Z","resolver":"terra","type":"run_completed","detail":"notes: "}
+{"ts":"2026-07-09T22:24:39.953Z","resolver":"ignis","type":"run_started","detail":"IGNIS research session (27 orgs in commons)"}
+{"ts":"2026-07-09T22:25:37.683Z","resolver":"aether","type":"model_usage","detail":"in 653305 / out 27749 tokens on claude-sonnet-5"}
+{"ts":"2026-07-09T22:25:37.684Z","resolver":"aether","type":"run_failed","detail":"Unexpected non-whitespace character after JSON at position 83 (line 1 column 84)"}
+{"ts":"2026-07-09T22:26:12.827Z","resolver":"aether","type":"run_started","detail":"AETHER research session (30 orgs in commons)"}
+{"ts":"2026-07-09T22:31:23.419Z","resolver":"ignis","type":"model_usage","detail":"in 1173587 / out 17868 tokens on claude-sonnet-5"}
+{"ts":"2026-07-09T22:31:23.422Z","resolver":"ignis","type":"orgs_added","detail":"4 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-07-09T22:31:23.422Z","resolver":"ignis","type":"brief_published","detail":"2026-07-09.md: Detection races ahead, recovery stays local, and the Mediterranean gets a cross-border fire culture"}
+{"ts":"2026-07-09T22:31:23.422Z","resolver":"ignis","type":"run_completed","detail":"notes: Web search and fetch tools hit an intermittent server-side rate limit repeatedly this session, which blocked verification of several promising leads including South Africa's Working on Fire programme "}
+{"ts":"2026-07-09T22:36:11.863Z","resolver":"aether","type":"model_usage","detail":"in 761440 / out 27419 tokens on claude-sonnet-5"}
+{"ts":"2026-07-09T22:36:11.865Z","resolver":"aether","type":"orgs_added","detail":"2 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-07-09T22:36:11.866Z","resolver":"aether","type":"brief_published","detail":"2026-07-09.md: One Funder's Grant Book, Two New Threads, and a Search Tool That Quit"}
+{"ts":"2026-07-09T22:36:11.866Z","resolver":"aether","type":"run_completed","detail":"notes: The session's web_search tool was refused after only a handful of calls and did not recover for the rest of the run, and web_fetch was similarly capped after two successful loads, so this round relied"}
+{"ts":"2026-07-09T22:51:15.484Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (28 orgs in commons)"}
+{"ts":"2026-07-09T22:57:51.778Z","resolver":"nereus","type":"model_usage","detail":"in 1163273 / out 23410 tokens on claude-sonnet-5"}
+{"ts":"2026-07-09T22:57:51.782Z","resolver":"nereus","type":"orgs_added","detail":"7 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-07-09T22:57:51.782Z","resolver":"nereus","type":"brief_published","detail":"2026-07-09.md: Filling in policy and periphery-method gaps: seven additions to the Commons"}
+{"ts":"2026-07-09T22:57:51.782Z","resolver":"nereus","type":"run_completed","detail":"notes: The web_search tool hit a hard usage limit mid-session, forcing reliance on already-cached search-result snippets rather than fresh full-page fetches for two candidates (ASEAN Centre for Biodiversity,"}
+{"ts":"2026-07-24T15:52:29.200Z","resolver":"nereus","type":"mandate_revised","detail":"Recommissioned as The Desalination Resolver (desalination and water reuse). The deep-ocean Commons (35 orgs, 38 sources, 1 report update) transfers intact to POSEIDON RN-006 in the commission queue."}
+{"ts":"2026-07-24T15:53:42.254Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (0 orgs in commons)"}
+{"ts":"2026-07-24T15:53:42.882Z","resolver":"nereus","type":"run_failed","detail":"400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"output_config.format.schema: For 'array' type, 'minItems' values other than 0 or 1 are not supported (got: [2, 5])\"},\"request_id\":\"req_011CdM9o3hSdfAVstrwAhnej\"}"}
+{"ts":"2026-07-24T15:54:14.134Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (0 orgs in commons)"}
+{"ts":"2026-07-24T15:54:14.540Z","resolver":"nereus","type":"run_failed","detail":"400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"output_config.format.schema: For 'array' type, property 'maxItems' is not supported\"},\"request_id\":\"req_011CdM9qPEjzrqPNbW6KAnBm\"}"}
+{"ts":"2026-07-24T15:54:43.606Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (0 orgs in commons)"}
+{"ts":"2026-07-24T15:57:04.831Z","resolver":"nereus","type":"run_failed","detail":"Request was declined by safety classifiers (stop_reason: refusal)."}
+{"ts":"2026-07-24T15:59:36.081Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (0 orgs in commons)"}
+{"ts":"2026-07-24T16:01:38.908Z","resolver":"nereus","type":"model_usage","detail":"in 103319 / out 3029 tokens on claude-sonnet-5"}
+{"ts":"2026-07-24T16:01:38.978Z","resolver":"nereus","type":"orgs_added","detail":"0 new organizations this session (1 dropped by honesty gate)"}
+{"ts":"2026-07-24T16:01:39.010Z","resolver":"nereus","type":"report_updated","detail":"placeholder (+0 findings, 0 standing)"}
+{"ts":"2026-07-24T16:01:39.017Z","resolver":"nereus","type":"run_completed","detail":"notes: placeholder"}
+{"ts":"2026-07-24T16:02:58.000Z","resolver":"nereus","type":"update_retracted","detail":"The 16:01 session returned degenerate structured output (placeholder body); withdrawn before deploy. Founding-session prompt and a report quality gate added to the pipeline."}
+{"ts":"2026-07-24T16:04:35.804Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (0 orgs in commons)"}
+{"ts":"2026-07-24T16:14:48.491Z","resolver":"nereus","type":"model_usage","detail":"in 752056 / out 28738 tokens on claude-sonnet-5"}
+{"ts":"2026-07-24T16:14:48.493Z","resolver":"nereus","type":"orgs_added","detail":"1 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-07-24T16:14:48.496Z","resolver":"nereus","type":"report_updated","detail":"Founding the Commons: One Verified Name, and a Session Cut Short by Its Own Tools (+3 findings, 3 standing)"}
+{"ts":"2026-07-24T16:14:48.496Z","resolver":"nereus","type":"run_completed","detail":"notes: Repeated web_search and web_fetch calls failed with a 'server tool use limit exceeded' error for most of the session, and one script bug briefly misreported failed fetches as successful, so only a sin"}
+{"ts":"2026-08-04T23:59:54.837Z","resolver":"triton","type":"run_started","detail":"TRITON research session (77 orgs in commons) [DRY]"}
+{"ts":"2026-08-04T23:59:54.838Z","resolver":"triton","type":"orgs_added","detail":"0 new organizations this session (0 dropped by honesty gate)"}
+{"ts":"2026-08-04T23:59:54.838Z","resolver":"triton","type":"run_completed","detail":"notes: Dry run only."}

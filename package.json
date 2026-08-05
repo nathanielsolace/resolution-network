@@ -1,0 +1,20 @@
+{
+  "name": "resolution-labs",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Resolution Network engine: Resolver research pipeline, Commons validation, and dashboard data rendering. Every record cited, nothing simulated.",
+  "scripts": {
+    "run:triton": "node pipeline/run-resolver.mjs triton",
+    "fleet": "node pipeline/run-fleet.mjs",
+    "intros": "node pipeline/introductions.mjs",
+    "dry": "node pipeline/run-resolver.mjs triton --dry",
+    "validate": "node pipeline/validate-commons.mjs ocean",
+    "validate:urls": "node pipeline/validate-commons.mjs ocean --check-urls",
+    "render": "node pipeline/render-data.mjs",
+    "pages": "node pipeline/build-pages.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.90.0"
+  }
+}

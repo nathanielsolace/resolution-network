@@ -81,6 +81,7 @@ const OUTPUT_SCHEMA = {
         type: "array",
         items: {
           type: "object",
+          additionalProperties: false,
           required: ["name", "url", "method", "sources"],
           properties: {
             name: { type: "string" },
@@ -109,6 +110,7 @@ const OUTPUT_SCHEMA = {
         type: "array",
         items: {
           type: "object",
+          additionalProperties: false,
           required: ["text", "sources"],
           properties: {
             text: { type: "string" },
@@ -120,6 +122,7 @@ const OUTPUT_SCHEMA = {
         type: "array",
         items: {
           type: "object",
+          additionalProperties: false,
           required: ["org_a", "org_b", "overlap", "intro_draft", "sources"],
           properties: {
             org_a: { type: "string" },
@@ -134,6 +137,7 @@ const OUTPUT_SCHEMA = {
         type: "array",
         items: {
           type: "object",
+          additionalProperties: false,
           required: ["name", "description", "addresses", "sources"],
           properties: {
             name: { type: "string" },
@@ -148,6 +152,7 @@ const OUTPUT_SCHEMA = {
         type: "array",
         items: {
           type: "object",
+          additionalProperties: false,
           required: ["name", "kind", "relevance", "sources"],
           properties: {
             name: { type: "string" },
@@ -163,6 +168,7 @@ const OUTPUT_SCHEMA = {
         type: "array",
         items: {
           type: "object",
+          additionalProperties: false,
           required: ["org", "concern", "sources"],
           properties: {
             org: { type: "string" },

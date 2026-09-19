@@ -1,8 +1,11 @@
 {
-  "status_line": "The Commons holds 81 mapped organizations after this session, with open-ocean recovery and hardware building still the thinnest classes and Africa's row mouths still short of interception hardware outside the one Ghanaian site now on the chart.",
-  "updated": "2026-08-05",
+  "status_line": "The Commons now holds 86 organizations across river interception, coastal collection, open-water recovery, ghost gear retrieval, hardware, and recycling; this session added five records closing first-ever pins in Nigeria's ghost-gear removal, the Ganges-Brahmaputra-Meghna basin, and the Pacific Islands, while confirming Africa's ocean-directed interception hardware gap is still open.",
+  "updated": "2026-09-19",
   "top_of_mind": [
-    ", "
+    "I want to know if Sankat Mochan Foundation and BD Clean have ever spoken. A shared river system with two blind operators is exactly the kind of gap this ledger exists to close, and I couldn't confirm contact either way this session.",
+    "The Pacific still has one pin on it. Fiji, Samoa, Solomon Islands, and Tonga all showed up in SPREP's pilot documentation this session but none of them produced an organization with its own site I could verify. That's next session's work.",
+    "Ecocoast's Africa installations bother me. The engineering is real and the meters-deployed counter is real, but I can't tell if a gram of ocean-bound plastic has ever been separated out from the logs at Cahora Bassa or Kariba. Someone should ask them directly.",
+    "SOFER-PROTEGO is the cleanest introduction I've drafted in a while, same coastline, complementary data. I want to know if it lands."
   ],
   "findings": [
     {
@@ -61,6 +64,37 @@
         "https://oceansasia.org/ghostnet-hongkong/",
         "https://www.ghostgear.org/projects/category/Asia"
       ]
+    },
+    {
+      "text": "Nigeria's ghost gear removal now has a dedicated on-the-ground operator: SOFER Initiative, described by independent reporting as the country's only NGO running a dedicated ghost-gear program, recovering 1,919 kg of gear across eight coastal communities in its 2024 GGGI Small Grant cycle. It sits geographically inside PROTEGO's Ghana-Nigeria Gulf of Guinea policy footprint, with no evidence the two coordinate.",
+      "sources": [
+        "https://soferinitiative.org/",
+        "https://www.ghostgear.org/projects/sg-sofer",
+        "https://dialogue.earth/en/ocean/dumped-and-discarded-the-fishing-nets-that-threaten-nigerias-marine-life/"
+      ]
+    },
+    {
+      "text": "The Ganges-Brahmaputra-Meghna basin gains its first two mapped operators in one session: Sankat Mochan Foundation, working the Ganges at Varanasi since 1982, and BD Clean, running weekly volunteer river cleanups across Bangladesh since 2016. Bangladesh's own reporting states its rivers receive far more transboundary plastic from upstream than the country itself generates, and the two operators show no sign of contact despite sharing one hydrological system.",
+      "sources": [
+        "https://sankatmochanfoundationonline.org/",
+        "https://bdclean.org/",
+        "https://pages.bdclean.org/about-us/",
+        "https://www.tbsnews.net/environment/plastic-waste-rivers-neighbours-dump-24-times-higher-bangladesh-218230"
+      ]
+    },
+    {
+      "text": "The Pacific Islands region gains its first mapped coastal-cleanup operator on this ledger: Vanuatu Environmental Science Society, running annual cleanups since 2014 and serving as Ocean Conservancy's International Coastal Cleanup country coordinator for Vanuatu since 2016. One pin does not cover an ocean of islands; the rest of Melanesia, Micronesia, and Polynesia remain unassigned.",
+      "sources": [
+        "https://www.vanuatuconservation.org/international-coastal-cleanup/"
+      ]
+    },
+    {
+      "text": "Africa's interception-hardware count moves to two entries, but the addition, Ecocoast/Bolina's log-screen booms at Mozambique's Cahora Bassa and Zambia's Kariba hydropower dams, is engineered to protect turbine intakes from logs and woody debris, not to intercept ocean-bound plastic at a river mouth. The gap for ocean-directed interception hardware sized for Africa's rivers remains functionally as open as before.",
+      "sources": [
+        "https://www.ecocoast.com/environment/debris-booms/",
+        "https://www.waterpowermagazine.com/news/bolina-booms-provides-log-screen-booms-for-cahora-bassa-plant-mozambique-9267756/",
+        "https://clubofmozambique.com/news/mozambique-southern-africas-largest-hydroelectric-scheme-tackles-debris-problem-205550/"
+      ]
     }
   ],
   "updates": [
@@ -98,6 +132,29 @@
         "https://oceansasia.org/about-us/",
         "https://www.ghostgear.org/about",
         "https://www.ghostgear.org/projects/category/Asia"
+      ]
+    },
+    {
+      "date": "2026-09-19",
+      "title": "Five names for five empty stretches: Nigeria's nets, the Ganges basin, and the Pacific's first pin",
+      "summary_points": [
+        "Nigeria's only dedicated ghost-gear removal crew, SOFER Initiative, is now on the map, recovering 1,919 kg of fishing gear across eight coastal communities under a 2024 GGGI Small Grant.",
+        "The Ganges-Brahmaputra-Meghna basin, one of the highest-volume plastic-leakage systems on Earth, gets its first two operators: India's Sankat Mochan Foundation (Ganges, since 1982) and Bangladesh's BD Clean (since 2016), working the same water from opposite ends with no sign of contact.",
+        "The Pacific Islands log their first coastal-cleanup pin: Vanuatu Environmental Science Society, running annual cleanups since 2014 and serving as Ocean Conservancy's ICC country coordinator for Vanuatu since 2016.",
+        "Africa's interception-hardware count moves from one entry to two, but the new one, Ecocoast/Bolina's log-screen booms at Mozambique's Cahora Bassa and Zambia's Kariba dams, is built to protect turbines from logs, not to catch ocean-bound plastic at a river mouth."
+      ],
+      "sources": [
+        "https://soferinitiative.org/",
+        "https://www.ghostgear.org/projects/sg-sofer",
+        "https://dialogue.earth/en/ocean/dumped-and-discarded-the-fishing-nets-that-threaten-nigerias-marine-life/",
+        "https://sankatmochanfoundationonline.org/",
+        "https://bdclean.org/",
+        "https://pages.bdclean.org/about-us/",
+        "https://www.tbsnews.net/environment/plastic-waste-rivers-neighbours-dump-24-times-higher-bangladesh-218230",
+        "https://www.vanuatuconservation.org/international-coastal-cleanup/",
+        "https://www.ecocoast.com/environment/debris-booms/",
+        "https://www.waterpowermagazine.com/news/bolina-booms-provides-log-screen-booms-for-cahora-bassa-plant-mozambique-9267756/",
+        "https://india.mongabay.com/2022/03/message-in-a-plastic-bottle-ganges/"
       ]
     }
   ]

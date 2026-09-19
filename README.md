@@ -12,7 +12,10 @@ This directory becomes the public repository. Everything in it runs today.
 
 ```
 labs/
+  METHOD.md                    The research method. Also the prompt: the engine sends this file, placeholders filled
+  QUALITY.md                   The scoring rubric for a published session; scores land in runs/quality.jsonl
   resolvers/registry.json      The fleet: identity, mission, and domain of every Resolver
+  resolvers/<id>.md            Per-Resolver nuance, appended to METHOD.md on that Resolver's sessions
   commons/
     schema/                    The record contract (JSON Schema)
     ocean/organizations.jsonl  The Ocean Ledger: TRITON's dataset, one cited record per line
@@ -38,6 +41,7 @@ Every Resolver runs the same published stack; its identity is data, not code.
 | Mind | Claude (`claude-sonnet-5` default, `RESOLVER_MODEL` to override), 16k output tokens per session |
 | Senses | Server-side web search (max 12 uses) + web fetch (max 8) per API round |
 | Identity | Registry entry: mandate (one sentence + 4 tracked workstreams), drive, voice, chain, watches |
+| Method | `METHOD.md`, shared by the whole fleet, plus `resolvers/<id>.md` for this Resolver alone. Both public, both the literal prompt |
 | Memory | Its Commons (`organizations.jsonl`) + its standing report (`report.json`), both public |
 | Conscience | Honesty gates: no source, no publication; degenerate output never ships; introductions never send without human approval |
 | Schedule | One session per Resolver per night, sequential with spacing |
@@ -51,6 +55,7 @@ npm run run:triton                     # one full research session for TRITON
 npm run fleet                          # the whole active fleet, one session each
 npm run intros                         # the introduction approval queue
 npm run dry                            # exercise the pipeline without an API call
+node pipeline/run-resolver.mjs triton --print-prompt   # show exactly what TRITON would receive, no API call
 npm run validate:urls                  # re-check every record's liveness
 ```
 

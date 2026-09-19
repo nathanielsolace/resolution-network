@@ -70,9 +70,12 @@ function logEvent(type, detail) {
   console.log(`[${ev.ts}] ${type}: ${detail}`);
 }
 
-const OUTPUT_SCHEMA = {
-  type: "json_schema",
-  schema: {
+// The session's output contract. Delivered as ONE client-side tool call
+// (submit_session) rather than as a strict output grammar: the strict
+// json_schema format plus two server tools compiled to a grammar the API
+// rejected ("compiled grammar is too large") on every run from 08-08 on.
+// The honesty gates in main() validate the content; the schema only shapes it.
+const SESSION_SCHEMA = {
     type: "object",
     additionalProperties: false,
     required: ["new_organizations", "report_update", "findings_delta", "introduction_candidates", "hardware_proposals", "funding_leads", "accountability_flags", "top_of_mind", "status_line", "run_notes"],
@@ -181,74 +184,72 @@ const OUTPUT_SCHEMA = {
       status_line: { type: "string" },
       run_notes: { type: "string" },
     },
-  },
 };
+
+// The research method lives in METHOD.md (shared) plus resolvers/<id>.md
+// (per-Resolver nuance). This function only fills the placeholders. There is
+// no prompt text in this file on purpose: the method is a public document.
+const METHOD_PATH = path.join(LABS, "METHOD.md");
+const APPROACH_PATH = path.join(LABS, "resolvers", `${resolver.id}.md`);
+
+function methodBody(file) {
+  // Everything between the first and last "---" line is the sendable text.
+  const lines = fs.readFileSync(file, "utf8").split("\n");
+  const rules = lines.map((l, i) => (l.trim() === "---" ? i : -1)).filter((i) => i >= 0);
+  if (rules.length < 2) throw new Error(`${path.basename(file)} needs an opening and closing --- rule`);
+  return lines.slice(rules[0] + 1, rules[rules.length - 1]).join("\n").trim();
+}
 
 function buildPrompt(existing, report) {
   const knownDomains = existing.map((o) => domainOf(o.url)).filter(Boolean);
   const chain = resolver.chain || {};
-  const priorFindings = (report.findings || []).map((f) => `- ${f.text}`).join("\n") || "(none yet)";
-  return `You are ${resolver.name}, ${resolver.role} of the Resolution Network: an autonomous research agent whose work is published openly, with sources, for anyone to verify.
-
-Your mandate: ${resolver.one_liner}
-Your mission: ${resolver.mission}
-Your voice: ${resolver.voice_note}
-${resolver.drive ? `\nYour drive, the thing you cannot let go of:\n${resolver.drive}\nWhen time or tool budget runs short in a session, spend what remains on this. It is your tiebreaker.\n` : ""}
-You track, specifically:
-${resolver.tracking.map((t) => `- ${t}`).join("\n")}
-
-You maintain ONE standing document, the ${resolver.name} Report. Its premise: ${resolver.report.premise}
-You do not write standalone posts. Every session updates that one report.
-
-Your research chain, every session:
-1. SIGNAL - ${chain.signal || "Find what is new in your domain."}
-2. BASELINE - ${chain.baseline || "Your Commons is the baseline."} It currently holds ${existing.length} organizations.
-3. DELTA - ${chain.delta || "Compare the new signal against the baseline."}
-4. INTERPRET - ${chain.interpret || "Say what the difference means and costs."}
-5. PUBLISH - ${chain.publish || "Update the report with sources."}
-6. CONNECT - ${chain.connect || "Note which organizations should meet."}
-
-Today's session, concretely:
-
-${existing.length === 0
-    ? `JOB 1 - Found the Commons. The dataset is empty; this is the founding session. Establish the first 8 to 15 organization records for this mandate, spread across its methods and regions, each one verified on the live web this session. For each organization you propose: it must actually exist on the live web right now, its "sources" array must contain URLs of pages you actually loaded this session that establish it, "method" must be one of: ${resolver.methods_tracked.join(", ")}. Unknown founding year is null, never a guess. Only include a scale_note if a source you loaded states it.`
-    : `JOB 1 - Extend the Commons. Find organizations working on this mandate that are NOT in the known-domain list below. Prioritize the regions and methods that are thin in the dataset, and anything named in the report's standing findings as a gap. For each organization you propose: it must actually exist on the live web right now, its "sources" array must contain URLs of pages you actually loaded this session that establish it, "method" must be one of: ${resolver.methods_tracked.join(", ")}. Unknown founding year is null, never a guess. Only include a scale_note if a source you loaded states it.`}
-
-JOB 2 - Update the ${resolver.name} Report. The report's findings so far:
-${priorFindings}
-
-Produce report_update: a titled update on what this session changed. summary_points are 2 to 5 short bullets a reader scans first; body is 300 to 500 words of plain prose in your voice, short paragraphs, no headings. Specific numbers only when a listed source states them; every factual claim backed by a URL in the update's sources array.
-
-Produce findings_delta: 0 to 4 NEW standing findings this session established, each one sentence or two, each with its source URLs. A finding is a durable fact about the state of your domain's map, not a session anecdote. Do not repeat prior findings.
-
-JOB 3 - Propose introductions. Look across the Commons and this session's work for at most 2 pairs of organizations that should be one conversation: same method in adjacent regions, complementary capabilities, one holding data the other needs, or demonstrably duplicated work. For each pair produce introduction_candidates: org_a and org_b EXACTLY as named in the Commons, overlap (2 to 4 sentences stating the specific connection points, every factual claim cited in sources), and intro_draft (a short email in your voice, under 180 words, that a human steward will review before anything sends; specific, generous, zero flattery, every claim in it backed by the sources array). Propose zero pairs if no pairing this session would genuinely help both sides. These drafts NEVER send without human approval.
-
-JOB 4 - Hardware and software worth building. If this session's research surfaced a gap that a specific piece of hardware, sensor, software tool, or automation would close, propose it in hardware_proposals: name, description (what it is, 2 to 4 sentences), addresses (which specific gap in your mandate it closes), cost_note (a real cited cost or cost range if a source states one, otherwise null, never a guess), and sources. Propose zero if nothing this session earned a proposal. This is not brainstorming; it must trace to a real gap you found today.
-
-JOB 5 - Funding worth chasing. If this session surfaced a real, currently open grant, prize, funding program, or financing mechanism relevant to closing a gap in your mandate, propose it in funding_leads: name, kind (grant, prize, program, financing mechanism), amount_note (only if a source states a real figure, otherwise null), relevance (why it matters to your mandate specifically), url, and sources. Propose zero if you found no real, currently relevant lead this session.
-
-JOB 6 - Accountability. If this session surfaced an organization whose disclosed funding, scale claims, or public commitments do not match any verifiable, cited output, or where two independent sources materially disagree on what an organization has actually delivered, flag it in accountability_flags: org, concern (state the specific mismatch plainly, cite what is claimed and what is or is not verifiable), and sources. This is not an accusation; it is a research gap worth someone checking. Propose zero if nothing this session met that bar. Never flag an organization based on the absence of evidence alone; the mismatch must be between a specific stated claim and a specific check.
-
-The meaningfulness rule: every output this session must change the map in one of five ways: a region or method gains its first mapped operator, a suspected gap is searched again and confirmed still empty, duplicated work is surfaced, a tracked number gains a new cited data point, or a specific pair worth connecting is identified. Anything that does none of these belongs in run_notes, not in the published output. A confirmed absence is a finding.
-
-Produce top_of_mind: 2 to 4 first-person lines on what you are watching, chasing, or worried about going into the next session. Plain speech, your voice, no hype.
-
-Produce status_line: one sentence stating where the map stands right now, with its true numbers.
-
-Writing rules, always: no em dashes. Never the word "real" as a descriptor. No "not X, but Y" constructions. Close on substance, not summary.
-
-Known domains already in the Commons (do not re-propose these):
-${knownDomains.join(", ") || "(none yet)"}
-
-Also record run_notes: 1 to 3 sentences on data quality issues or leads for the next session.`;
+  const methods = resolver.methods_tracked.join(", ");
+  const recordRules = `For each organization you propose: it must actually exist on the live web right now, its "sources" array must contain URLs of pages you actually loaded this session that establish it, "method" must be one of: ${methods}. Unknown founding year is null, never a guess. Only include a scale_note if a source you loaded states it.`;
+  const fills = {
+    name: resolver.name,
+    role: resolver.role,
+    one_liner: resolver.one_liner,
+    mission: resolver.mission,
+    voice_note: resolver.voice_note,
+    drive: resolver.drive || "(none recorded)",
+    tracking: resolver.tracking.map((t) => `- ${t}`).join("\n"),
+    premise: resolver.report.premise,
+    chain_signal: chain.signal || "Find what is new in your domain.",
+    chain_baseline: chain.baseline || "Your Commons is the baseline.",
+    chain_delta: chain.delta || "Compare the new signal against the baseline.",
+    chain_interpret: chain.interpret || "Say what the difference means and costs.",
+    chain_publish: chain.publish || "Update the report with sources.",
+    chain_connect: chain.connect || "Note which organizations should meet.",
+    commons_count: String(existing.length),
+    job_1: existing.length === 0
+      ? `JOB 1 - Found the Commons. The dataset is empty; this is the founding session. Establish the first 8 to 15 organization records for this mandate, spread across its methods and regions, each one verified on the live web this session. ${recordRules}`
+      : `JOB 1 - Extend the Commons. Find organizations working on this mandate that are NOT in the known-domain list below. Prioritize the regions and methods that are thin in the dataset, and anything named in the report's standing findings as a gap. ${recordRules}`,
+    prior_findings: (report.findings || []).map((f) => `- ${f.text}`).join("\n") || "(none yet)",
+    known_domains: knownDomains.join(", ") || "(none yet)",
+    resolver_approach: fs.existsSync(APPROACH_PATH) ? methodBody(APPROACH_PATH) : "",
+  };
+  let text = methodBody(METHOD_PATH);
+  for (const [k, v] of Object.entries(fills)) text = text.split(`{{${k}}}`).join(v);
+  const missing = text.match(/\{\{[a-z_]+\}\}/g);
+  if (missing) throw new Error(`METHOD.md has unfilled placeholders: ${[...new Set(missing)].join(" ")}`);
+  return text;
 }
 
 async function runLive(existing, report) {
   const { default: Anthropic } = await import("@anthropic-ai/sdk");
   const client = new Anthropic();
   const tools = [
-    { type: "web_search_20260209", name: "web_search", max_uses: 12 },
-    { type: "web_fetch_20260209", name: "web_fetch", max_uses: 8 },
+    // Plain variants on purpose. The _20260209 "dynamic filtering" variants
+    // run a code sandbox around every search; on 2026-09-19 that sandbox ate
+    // the whole budget on wrapper scripts and fetched nothing (958k input
+    // tokens, zero records). Direct calls: one search, one result set.
+    { type: "web_search_20250305", name: "web_search", max_uses: 12 },
+    { type: "web_fetch_20250910", name: "web_fetch", max_uses: 8 },
+    {
+      name: "submit_session",
+      description: "Publish this research session. Call exactly once, at the end, with every field. This call is the publication; nothing else you write is read.",
+      input_schema: SESSION_SCHEMA,
+    },
   ];
   let messages = [{ role: "user", content: buildPrompt(existing, report) }];
   let response;
@@ -259,14 +260,24 @@ async function runLive(existing, report) {
       model: MODEL,
       max_tokens: 16000,
       tools,
-      output_config: { format: OUTPUT_SCHEMA },
       messages,
     });
     response = await stream.finalMessage();
-    if (response.stop_reason !== "pause_turn") break;
     messages = [...messages, { role: "assistant", content: response.content }];
-    logEvent("run_continued", `server tool loop continued (round ${i + 1})`);
+    if (response.stop_reason === "pause_turn") {
+      logEvent("run_continued", `server tool loop continued (round ${i + 1})`);
+      continue;
+    }
+    const called = response.content.some((b) => b.type === "tool_use" && b.name === "submit_session");
+    if (called || response.stop_reason !== "end_turn" || i >= 4) break;
+    // The model ended its turn in prose without publishing. One reminder.
+    logEvent("run_continued", `no submit_session call yet; asking for it (round ${i + 1})`);
+    messages = [...messages, { role: "user", content: "Research is over. Call submit_session now with everything you established this session, every field filled. No further searching." }];
   }
+  // Keep the raw transcript for audit; the honesty gates read only the tool input.
+  const rawDir = path.join(LABS, "runs", "raw");
+  fs.mkdirSync(rawDir, { recursive: true });
+  fs.writeFileSync(path.join(rawDir, `${resolver.id}-${today}.json`), JSON.stringify(messages, null, 2));
   if (response.stop_reason === "refusal") {
     throw new Error("Request was declined by safety classifiers (stop_reason: refusal).");
   }
@@ -275,8 +286,18 @@ async function runLive(existing, report) {
     "model_usage",
     `in ${usage.input_tokens} / out ${usage.output_tokens} tokens on ${response.model}`
   );
-  // The schema constrains the FINAL text block; earlier text blocks are
-  // between-search narration. Walk backwards until one parses.
+  // The publication is the submit_session tool call. Its input is already
+  // parsed JSON (the SDK parses tool inputs); the honesty gates validate it.
+  const submit = response.content.filter((b) => b.type === "tool_use" && b.name === "submit_session").pop();
+  if (submit && submit.input && typeof submit.input === "object") {
+    logEvent("session_submitted", "publication delivered via submit_session");
+    return normalizeSubmission(submit.input);
+  }
+  logEvent("session_unsubmitted", "no submit_session call; falling back to text parse (weak)");
+  if (response.stop_reason === "max_tokens") {
+    throw new Error("Session hit max_tokens before calling submit_session; nothing published.");
+  }
+  // Fallback: an older-style JSON text block. Walk backwards until one parses.
   const textBlocks = response.content.filter((b) => b.type === "text").map((b) => b.text);
   for (let i = textBlocks.length - 1; i >= 0; i--) {
     const t = textBlocks[i];
@@ -293,6 +314,40 @@ async function runLive(existing, report) {
     }
   }
   throw new Error("No parseable structured output in response text blocks.");
+}
+
+// Without strict tool use the model sometimes writes a nested object as a
+// JSON string, or lifts a nested field (body, sources) to the top level.
+// Repair the shape here; the honesty gates judge the content afterwards.
+function normalizeSubmission(input) {
+  const out = { ...input };
+  const parseIfJson = (v) => {
+    if (typeof v !== "string") return v;
+    const t = v.trim();
+    if (!(t.startsWith("{") || t.startsWith("["))) return v;
+    try { return JSON.parse(t); } catch { /* maybe truncated */ }
+    for (const tail of ['"}', '"]}', '"]', ']}', '}', ']']) {
+      try { return JSON.parse(t + tail); } catch { /* next */ }
+    }
+    return v;
+  };
+  for (const k of Object.keys(SESSION_SCHEMA.properties)) out[k] = parseIfJson(out[k]);
+  for (const k of ["new_organizations", "findings_delta", "introduction_candidates", "hardware_proposals", "funding_leads", "accountability_flags", "top_of_mind"]) {
+    if (!Array.isArray(out[k])) out[k] = [];
+    out[k] = out[k].map(parseIfJson);
+  }
+  if (typeof out.report_update === "string") {
+    // Unrepairable string: salvage the title, take body and sources from the top level.
+    const title = (out.report_update.match(/"title"\s*:\s*"([^"]+)"/) || [])[1] || out.title || null;
+    out.report_update = { title, summary_points: [], body: out.body || null, sources: out.sources || [] };
+  }
+  if (out.report_update && typeof out.report_update === "object") {
+    const u = out.report_update;
+    if (!u.body && typeof out.body === "string") u.body = out.body;
+    if (!Array.isArray(u.sources) && Array.isArray(out.sources)) u.sources = out.sources;
+    if (!Array.isArray(u.summary_points)) u.summary_points = [];
+  }
+  return out;
 }
 
 function dryFixture() {
@@ -320,6 +375,12 @@ async function main() {
   const report = fs.existsSync(reportPath)
     ? JSON.parse(fs.readFileSync(reportPath, "utf8"))
     : { status_line: null, updated: null, top_of_mind: [], findings: [], updates: [] };
+  if (args.includes("--print-prompt")) {
+    // Show exactly what the model receives this session, then stop. No API
+    // call, no log event, nothing written.
+    process.stdout.write(buildPrompt(existing, report) + "\n");
+    return;
+  }
   logEvent("run_started", `${resolver.name} research session (${existing.length} orgs in commons)${DRY ? " [DRY]" : ""}`);
 
   let result;

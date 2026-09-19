@@ -186,3 +186,28 @@
 {"ts":"2026-08-21T15:43:49.671Z","resolver":"nereus","type":"run_failed","detail":"400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The compiled grammar is too large, which would cause performance issues. Simplify your tool schemas or reduce the number of strict tools.\"},\"request_id\":\"req_011CeG9gvthPdG532NbyiaXm\"}"}
 {"ts":"2026-08-21T15:48:52.460Z","resolver":"nereus","type":"run_started","detail":"NEREUS research session (6 orgs in commons)"}
 {"ts":"2026-08-21T15:48:53.079Z","resolver":"nereus","type":"run_failed","detail":"400 {\"type\":\"error\",\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The compiled grammar is too large, which would cause performance issues. Simplify your tool schemas or reduce the number of strict tools.\"},\"request_id\":\"req_011CeGA5MAp1bZyeVCP43RHe\"}"}
+{"ts":"2026-09-19T16:16:14.119Z","resolver":"triton","type":"run_started","detail":"TRITON research session (81 orgs in commons)"}
+{"ts":"2026-09-19T16:28:16.575Z","resolver":"triton","type":"model_usage","detail":"in 790775 / out 28661 tokens on claude-sonnet-5"}
+{"ts":"2026-09-19T16:28:16.577Z","resolver":"triton","type":"orgs_added","detail":"1 new organizations proposed (5 dropped by honesty gate)"}
+{"ts":"2026-09-19T16:28:16.577Z","resolver":"triton","type":"intros_proposed","detail":"0 introductions drafted for the approval queue"}
+{"ts":"2026-09-19T16:28:16.578Z","resolver":"triton","type":"run_completed","detail":"notes: "}
+{"ts":"2026-09-19T16:28:55Z","resolver":"triton","type":"record_retracted","detail":"BRAC (plastic-to-raw-material project) removed: url pointed at a news article, not the organization; record contract failed"}
+{"ts":"2026-09-19T16:29:03.197Z","resolver":"triton","type":"run_started","detail":"TRITON research session (81 orgs in commons)"}
+{"ts":"2026-09-19T16:37:58.883Z","resolver":"triton","type":"model_usage","detail":"in 958254 / out 28498 tokens on claude-sonnet-5"}
+{"ts":"2026-09-19T16:37:58.885Z","resolver":"triton","type":"session_submitted","detail":"publication delivered via submit_session"}
+{"ts":"2026-09-19T16:37:58.885Z","resolver":"triton","type":"orgs_added","detail":"0 new organizations this session (0 dropped by honesty gate)"}
+{"ts":"2026-09-19T16:37:58.888Z","resolver":"triton","type":"intros_proposed","detail":"0 introductions drafted for the approval queue"}
+{"ts":"2026-09-19T16:37:58.889Z","resolver":"triton","type":"update_rejected","detail":"report update failed the quality gate (degenerate or under-length body); nothing published"}
+{"ts":"2026-09-19T16:37:58.890Z","resolver":"triton","type":"run_completed","detail":"notes: "}
+{"ts":"2026-09-19T16:38:54.323Z","resolver":"triton","type":"run_started","detail":"TRITON research session (81 orgs in commons)"}
+{"ts":"2026-09-19T16:38:54.376Z","resolver":"triton","type":"run_failed","detail":"Could not resolve authentication method. Expected either apiKey or authToken to be set. Or for one of the \"X-Api-Key\" or \"Authorization\" headers to be explicitly omitted"}
+{"ts":"2026-09-19T16:39:20.733Z","resolver":"triton","type":"run_started","detail":"TRITON research session (81 orgs in commons)"}
+{"ts":"2026-09-19T16:43:44.982Z","resolver":"triton","type":"model_usage","detail":"in 821213 / out 23261 tokens on claude-sonnet-5"}
+{"ts":"2026-09-19T16:43:44.983Z","resolver":"triton","type":"session_submitted","detail":"publication delivered via submit_session"}
+{"ts":"2026-09-19T16:43:44.986Z","resolver":"triton","type":"orgs_added","detail":"5 new organizations proposed (0 dropped by honesty gate)"}
+{"ts":"2026-09-19T16:43:44.986Z","resolver":"triton","type":"intros_proposed","detail":"1 introduction drafted for the approval queue (1 dropped by honesty gate)"}
+{"ts":"2026-09-19T16:43:44.987Z","resolver":"triton","type":"hardware_proposed","detail":"1 hardware/software spec proposed"}
+{"ts":"2026-09-19T16:43:44.987Z","resolver":"triton","type":"funding_flagged","detail":"1 funding lead flagged"}
+{"ts":"2026-09-19T16:43:44.987Z","resolver":"triton","type":"accountability_flagged","detail":"1 accountability flag raised"}
+{"ts":"2026-09-19T16:43:44.989Z","resolver":"triton","type":"report_updated","detail":"Five names for five empty stretches: Nigeria's nets, the Ganges basin, and the Pacific's first pin (+4 findings, 13 standing)"}
+{"ts":"2026-09-19T16:43:44.990Z","resolver":"triton","type":"run_completed","detail":"notes: Several promising leads did not clear the bar for inclusion: Fiji, Samoa, Solomon Islands, and Tonga all appear in SPREP's SWAP pilot documentation but none produced a verifiable standalone organizati"}
